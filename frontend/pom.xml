@@ -4,9 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ml-marketplace</groupId>
+    <parent>
+        <artifactId>mlmp</artifactId>
+        <groupId>com.ml-marketplace.mlmp</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>frontend</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-
+    <properties>
+        <sonar.sources>pom.xml,src/</sonar.sources>
+        <sonar.exclusions>**/*.spec.js,**/*.spec.jsx,**/*.spec.ts,**/*.spec.tsx</sonar.exclusions>
+        <sonar.tests>src/</sonar.tests>
+        <sonar.test.inclusions>**/*.spec.js,**/*.spec.jsx,**/*.spec.ts,**/*.spec.tsx</sonar.test.inclusions>
+        <sonar.javascript.lcov.reportPaths>coverage/lcov.info</sonar.javascript.lcov.reportPaths>
+    </properties>
 </project>
