@@ -14,3 +14,9 @@ do
 done
 printf "\n"
 
+echo
+echo "Updating Database"
+mvn --batch-mode liquibase:update -Dliquibase.logging=debug -f ${SCRIPT_PATH}/../migrations/pom.xml
+
+read -s -n 1 -p "Press any key to continue..."
+echo ""
