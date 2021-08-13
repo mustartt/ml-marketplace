@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  db:
+    image: postgres:13.4
+    restart: always
+    ports:
+      - "10001:5432"
+    environment:
+      POSTGRES_PASSWORD: not-secure
+      POSTGRES_USER: mlmp-local
+      POSTGRES_DB: mlmp
