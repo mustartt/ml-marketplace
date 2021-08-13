@@ -9,3 +9,53 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+
+HELP.md
+target/
+.mvn/
+!**/sem-api/src/main/**/target/
+!**/sem-api/test/**/target/
+!**/croner/src/main/**/target/
+!**/croner/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### JS ###
+**/frontend/node
+**/frontend/node_modules
+**/frontend/.pnp
+**/frontend/.pnp.js
+
+# testing
+**/frontend/coverage
+
+# production
+**/frontend/build
+
+# misc
+**/frontend/.eslintcache
+**/frontend/.DS_Store
+**/frontend/.env.local
+**/frontend/.env.development.local
+**/frontend/.env.test.local
+**/frontend/.env.production.local
+
+**/frontend/npm-debug.log*
+**/frontend/yarn-debug.log*
+**/frontend/yarn-error.log*
+
+####
+**/.flattened-pom.xml
