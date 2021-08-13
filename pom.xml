@@ -13,6 +13,7 @@
     <groupId>com.ml-marketplace.mlmp</groupId>
     <artifactId>mlmp</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Parent of mlmp</name>
     <description>ml-marketplace</description>
 
@@ -67,6 +68,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+            <version>42.2.23</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
