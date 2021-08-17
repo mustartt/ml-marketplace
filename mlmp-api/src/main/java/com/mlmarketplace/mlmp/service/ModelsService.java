@@ -18,7 +18,7 @@ public class ModelsService {
     private ModelsRepository modelsRepository;
 
     public Page<ModelResponseDTO> getAllModels(final Pageable pageable) {
-        return modelsRepository.getAllModels(pageable)
+        return modelsRepository.findAll(pageable)
                 .map(ModelResponseMapper::map);
     }
 
