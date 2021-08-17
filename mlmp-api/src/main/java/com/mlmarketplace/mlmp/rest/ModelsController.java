@@ -1,15 +1,19 @@
 package com.mlmarketplace.mlmp.rest;
 
+import com.mlmarketplace.mlmp.configurations.PageProps;
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
+import com.mlmarketplace.mlmp.dto.PageResponseDTO;
+import com.mlmarketplace.mlmp.dto.mapper.PageResponseMapper;
 import com.mlmarketplace.mlmp.models.Model;
 import com.mlmarketplace.mlmp.service.ModelsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,17 +30,22 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(path = "/api")
+@EnableConfigurationProperties(PageProps.class)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @CrossOrigin
 public class ModelsController {
 
     private final ModelsService modelsService;
+    private final PageProps pageProps;
 
     @GetMapping(path = "/models", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<ModelResponseDTO> fetchModels(@RequestParam(name = "page") final int page,
-                                              @RequestParam(name = "size") final int pageSize) {
-        final var pageable = PageRequest.of(page, pageSize);
-        return modelsService.getAllModels(pageable);
+    public PageResponseDTO<ModelResponseDTO> fetchModels(@Nullable @RequestParam(name = "page") final Integer page,
+                                                         @Nullable @RequestParam(name = "size") final Integer pageSize) {
+        final var defaultPage = page == null ? 0 : page;
+        final var defaultPageSize = pageSize == null ? pageProps.getSize() : pageSize;
+        final var pageable = PageRequest.of(defaultPage, defaultPageSize);
+
+        return PageResponseMapper.map(modelsService.getAllModels(pageable));
     }
 
     @GetMapping("/models/{id}/")
@@ -50,7 +59,7 @@ public class ModelsController {
         modelsService.addModels(models);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/models/{id}").buildAndExpand(models.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     /*TODO: Add authentication.
@@ -59,11 +68,11 @@ public class ModelsController {
     @PutMapping(value = "/models/{id}/")
     public ResponseEntity<Void> updateModels(@PathVariable(name = "id") final Long id,
                                              @RequestBody final String description) {
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/models/{id}/")
     public ResponseEntity<Void> deleteModels(@PathVariable("id") Long id) {
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
