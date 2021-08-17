@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mlmarketplace.mlmp.models.ModelType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +30,7 @@ public class ModelResponseDTO {
     private String format;
 
     @JsonProperty("type")
-    private String type;
+    private ModelType type;
 
     // user info dto joins
 

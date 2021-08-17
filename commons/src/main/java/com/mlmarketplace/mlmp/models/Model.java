@@ -69,7 +69,7 @@ public class Model {
     private Date createDate;
 
     @UpdateTimestamp
-    @Column(name = "description", nullable = false)
+    @Column(name = "update_date", nullable = false)
     private Date updateDate;
 }
 
