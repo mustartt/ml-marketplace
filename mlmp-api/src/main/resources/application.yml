@@ -16,3 +16,6 @@ spring:
   sql:
     init:
       platform: postgres
+
+page:
+  size: 10
