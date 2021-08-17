@@ -27,9 +27,11 @@ public class Model {
     private String framework;
     private String format;
     private String type;
-    private int publisher;
+
+    // user dto
+
+    private String excerpt;
     private String description;
-    private String descriptionFull;
     private String storageUrl;
     private String tags;
     private double price;
