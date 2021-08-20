@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlmarketplace.mlmp.service.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,8 +26,12 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals("/api/user/auth") || request.getServletPath().equals("/api/user/refresh")) {
+        if (request.getServletPath().equals("/api/user/auth") ||
+                request.getServletPath().equals("/api/user/refresh") ||
+                request.getServletPath().equals("/api/user/register")) {
+
             filterChain.doFilter(request, response);
+
         } else {
             final var accessToken = jwtTokenProvider.getToken(request);
             if (accessToken.isPresent()) {

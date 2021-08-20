@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mlmarketplace.mlmp.dto.RegisterUserRequest;
+import com.mlmarketplace.mlmp.dto.UserResponse;
 import com.mlmarketplace.mlmp.models.Role;
 import com.mlmarketplace.mlmp.models.User;
 import com.mlmarketplace.mlmp.service.JwtTokenProvider;
 import com.mlmarketplace.mlmp.service.UserService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,13 +35,18 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping(path = "/users")
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok().body(userService.getUsers());
+    public List<UserResponse> getUsers() {
+        return userService.getUsers();
     }
 
     @PostMapping(path = "/user/save")
     public ResponseEntity<User> saveUser(@RequestBody final User user) {
         return ResponseEntity.ok(userService.saveUser(user));
+    }
+
+    @PostMapping(path = "/user/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserResponse registerUser(@NonNull @RequestBody final RegisterUserRequest request) {
+        return userService.registerUser(request);
     }
 
     @GetMapping(path = "/user/refresh")

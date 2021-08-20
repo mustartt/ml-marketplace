@@ -34,19 +34,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        final var customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), jwtTokenProvider);
-        customAuthenticationFilter.setFilterProcessesUrl("/api/user/auth");
-
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/api/user/auth", "/api/user/refresh")
+                .antMatchers("/api/user/auth", "/api/user/refresh", "/api/user/register")
                 .permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
-        http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(customAuthenticationFilter());
+        http.addFilterBefore(customAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
+        final var customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), jwtTokenProvider);
+        customAuthenticationFilter.setFilterProcessesUrl("/api/user/auth");
+        return customAuthenticationFilter;
+    }
+
+    private CustomAuthorizationFilter customAuthorizationFilter() {
+        return new CustomAuthorizationFilter(jwtTokenProvider);
     }
 
     @Bean
