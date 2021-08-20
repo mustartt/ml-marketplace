@@ -36,6 +36,7 @@
     "redux": "^4.1.1",
     "redux-form": "^8.3.7",
     "redux-thunk": "^2.3.0",
+    "tailwindcss": "^2.2.7",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
@@ -53,6 +54,10 @@
     "jest-sonar": "^0.2.12",
     "mini-css-extract-plugin": "^2.2.0",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "postcss": "^8.3.6",
+    "postcss-loader": "^6.1.1",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.38.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
     "terser-webpack-plugin": "^5.1.4",
