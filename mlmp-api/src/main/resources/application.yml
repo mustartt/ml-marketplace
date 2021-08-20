@@ -1,7 +1,7 @@
 ---
 spring:
   application:
-    name: MLMP
+  name: MLMP
   datasource:
     username: ${DB_USER:mlmp-local}
     password: ${DB_PASSWORD:not-secure}
@@ -12,8 +12,12 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
-  sql:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
     init:
       platform: postgres
 

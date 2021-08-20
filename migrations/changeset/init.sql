@@ -23,3 +23,17 @@ CREATE TABLE public.product
 
     CONSTRAINT PK_models PRIMARY KEY (model_id)
 );
+
+/*
+CREATE TABLE public.user
+(
+    id          integer     NOT NULL,
+    username    varchar(50) NOT NULL,
+    password    varchar(50),
+    email       varchar(50),
+    verified    boolean,
+    image_url   varchar(50),
+    provider    varchar(50),
+    provider_id varchar(50)
+);
+ */
