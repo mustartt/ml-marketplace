@@ -24,6 +24,7 @@ CREATE TABLE public.model
     CONSTRAINT PK_models PRIMARY KEY (model_id)
 );
 
+
 CREATE TABLE public.dataset
 (
     dataset_id      integer     NOT NULL,
@@ -48,4 +49,17 @@ CREATE TABLE public.dataset
     instance_size integer,
 
     CONSTRAINT PK_models PRIMARY KEY (dataset_id)
+);
+
+
+CREATE TABLE public.user
+(
+    id          integer     NOT NULL,
+    username    varchar(50) NOT NULL,
+    password    varchar(50),
+    email       varchar(50),
+    verified    boolean,
+    image_url   varchar(50),
+    provider    varchar(50),
+    provider_id varchar(50)
 );
