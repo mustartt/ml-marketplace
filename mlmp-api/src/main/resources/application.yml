@@ -24,6 +24,7 @@ spring:
 app:
   jwt:
     secret: ${JWT_SECRET:some-not-secure-secrets}
+    issuer: application
     accessTokenExpiration: 86400000
     refreshTokenExpiration: 864000000
 

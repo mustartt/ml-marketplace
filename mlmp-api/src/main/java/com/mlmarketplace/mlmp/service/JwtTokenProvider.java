@@ -25,22 +25,20 @@ public class JwtTokenProvider {
     private final JwtProps jwtProps;
 
     public String createAccessToken(final String username,
-                                    final List<String> roles,
-                                    final HttpServletRequest request) {
+                                    final List<String> roles) {
         return JWT.create()
                 .withSubject(username)
                 .withExpiresAt(new Date(System.currentTimeMillis() + jwtProps.getAccessTokenExpiration()))
-                .withIssuer(request.getRequestURI())
+                .withIssuer(jwtProps.getIssuer())
                 .withClaim("roles", roles)
                 .sign(Algorithm.HMAC256(jwtProps.getSecret().getBytes()));
     }
 
-    public String createRefreshToken(final String username,
-                                     final HttpServletRequest request) {
+    public String createRefreshToken(final String username) {
         return JWT.create()
                 .withSubject(username)
                 .withExpiresAt(new Date(System.currentTimeMillis() + jwtProps.getRefreshTokenExpiration()))
-                .withIssuer(request.getRequestURI())
+                .withIssuer(jwtProps.getIssuer())
                 .sign(Algorithm.HMAC256(jwtProps.getSecret().getBytes()));
     }
 
