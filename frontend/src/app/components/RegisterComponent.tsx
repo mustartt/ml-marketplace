@@ -1,41 +1,32 @@
-import React, {ReactNode, useRef} from "react";
+import React, { useRef } from 'react';
 
-import HeroIcons from "./HeroIcons";
-
-
-interface RegisterInputFieldI {
-  icon: ReactNode,
-  name: string,
-  label: string,
-  placeholder?: string,
-  inputType: string,
-  ref?: React.Ref<HTMLInputElement>
-}
-
-const RegisterInputField: React.FC<RegisterInputFieldI> = (props) => {
-  const elementId = `input-field-${props.name}`;
-  return (
-    <>
-      <label htmlFor={elementId} className="text-xs font-semibold px-1">{props.label}</label>
-      <div className="flex">
-        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-          {props.icon}
-        </div>
-        <input id={elementId}
-               type={props.inputType}
-               ref={props.ref}
-               className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-               placeholder={props.placeholder}/>
-      </div>
-    </>
-  );
-}
+import HeroIcons from './HeroIcons';
+import CustomInputField from './CustomInputField';
 
 interface RegisterComponentI {
 
 }
 
 const RegisterComponent: React.FC<RegisterComponentI> = () => {
+
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = () => {
+    fetch('http://localhost:8080/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: usernameRef.current?.value,
+        email: emailRef.current?.value,
+        password: passwordRef.current?.value,
+      }),
+    }).then(res => res.json()).then(result => console.log(result)).catch(err => console.log(err));
+  };
 
   return (
     <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
@@ -52,46 +43,42 @@ const RegisterComponent: React.FC<RegisterComponentI> = () => {
             </div>
             <div>
               <div className="flex -mx-3">
-                <div className="w-1/2 px-3 mb-5">
-                  <RegisterInputField
+                <div className="w-full px-3 mb-5">
+                  <CustomInputField
                     icon={<div className="h-5 w-5">{HeroIcons.user}</div>}
-                    name="firstname"
-                    label="First name"
+                    name="username"
+                    label="Username"
                     inputType="text"
-                    placeholder="John"/>
-                </div>
-                <div className="w-1/2 px-3 mb-5">
-                  <RegisterInputField
-                    icon={<div className="h-5 w-5">{HeroIcons.user}</div>}
-                    name="lastname"
-                    label="Last name"
-                    inputType="text"
-                    placeholder="Smith"/>
+                    inputRef={usernameRef}
+                    placeholder="johnsmith123"/>
                 </div>
               </div>
               <div className="flex -mx-3">
                 <div className="w-full px-3 mb-5">
-                  <RegisterInputField
+                  <CustomInputField
                     icon={<div className="h-5 w-5">{HeroIcons.email}</div>}
                     name="email"
                     label="Email"
                     inputType="text"
+                    inputRef={emailRef}
                     placeholder="johnsmith@gmail.com"/>
                 </div>
               </div>
               <div className="flex -mx-3">
                 <div className="w-full px-3 mb-12">
-                  <RegisterInputField
+                  <CustomInputField
                     icon={<div className="h-5 w-5">{HeroIcons.email}</div>}
                     name="password"
                     label="Password"
                     inputType="password"
+                    inputRef={passwordRef}
                     placeholder="**********"/>
                 </div>
               </div>
               <div className="flex -mx-3">
                 <div className="w-full px-3 mb-5">
                   <button
+                    onClick={handleSubmit}
                     className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER
                     NOW
                   </button>
@@ -103,6 +90,6 @@ const RegisterComponent: React.FC<RegisterComponentI> = () => {
       </div>
     </div>
   );
-}
+};
 
 export default RegisterComponent;
