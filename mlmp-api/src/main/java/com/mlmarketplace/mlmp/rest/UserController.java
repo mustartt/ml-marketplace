@@ -4,6 +4,7 @@ package com.mlmarketplace.mlmp.rest;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.mlmarketplace.mlmp.dto.RefreshTokenRequest;
 import com.mlmarketplace.mlmp.dto.RegisterUserRequest;
 import com.mlmarketplace.mlmp.dto.TokensResponse;
@@ -47,9 +48,8 @@ public class UserController {
     }
 
     @PostMapping(path = "/user/refresh", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public TokensResponse refreshToken(@NonNull @RequestBody final RefreshTokenRequest request) {
+    public TokensResponse refreshToken(@NonNull @RequestBody final RefreshTokenRequest request) throws JWTDecodeException {
         final var decodedJwt = jwtTokenProvider.decodeJwt(request.getRefreshToken());
-
         final var username = decodedJwt.getSubject();
         final var user = userService.getUser(username);
 

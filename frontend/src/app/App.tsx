@@ -4,7 +4,6 @@ import './index.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/rootReducer';
 import AuthActions from '../actions/auth/AuthActions';
-import axios from 'axios';
 
 const App: React.FC = () => {
 
@@ -12,7 +11,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('mounted')
+    console.log('mounted');
     dispatch(AuthActions.getAccessToken());
   }, []);
 
@@ -25,13 +24,7 @@ const App: React.FC = () => {
       }}>Reauthenticate
       </button>
       <button onClick={() => {
-        console.log(authState);
-
-        axios.get('http://localhost:8080/api/users').then(result => {
-          console.log(result);
-        }).catch(error => {
-          console.log(error);
-        });
+        dispatch(AuthActions.authenticate('test', 'test'));
       }}>Test
       </button>
     </div>
