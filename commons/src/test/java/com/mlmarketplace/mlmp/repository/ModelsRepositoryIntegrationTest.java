@@ -36,7 +36,7 @@ public class ModelsRepositoryIntegrationTest {
 
     @Test
     void whenSaveThenEntityIsPersisted() {
-        final var toSave = createBasicEntity(MODEL_NAME, MODEL_TYPE);
+        final var toSave = createBasicEntity(MODEL_NAME);
 
         modelsRepository.save(toSave);
         final var id = toSave.getId();
@@ -53,10 +53,7 @@ public class ModelsRepositoryIntegrationTest {
     void whenFindAllWithPageableThenPageIsReturned() {
         final var entities = IntStream.range(0, 10).boxed()
                 .map(val ->
-                        createBasicEntity(
-                                "model-" + val,
-                                val % 2 == 0 ? ModelType.MODEL : ModelType.DATASET
-                        )
+                        createBasicEntity("model-" + val)
                 )
                 .collect(Collectors.toList());
 
@@ -69,10 +66,9 @@ public class ModelsRepositoryIntegrationTest {
         assertThat(pageResult.getSize()).isEqualTo(5);
     }
 
-    private Model createBasicEntity(final String name, final ModelType type) {
+    private Model createBasicEntity(final String name) {
         return Model.builder()
                 .name(name)
-                .type(type)
                 .build();
     }
 

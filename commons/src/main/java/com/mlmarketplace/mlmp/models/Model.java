@@ -25,7 +25,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-@Table(name = "product")
+@Table(name = "model")
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +45,7 @@ public class Model {
     private String format;
 
     @Column(name = "type", nullable = false)
-    private ModelType type;
+    private ModelType type = ModelType.MODEL;
 
     // TODO (HJ): user table joins later when done implementing auth
 
