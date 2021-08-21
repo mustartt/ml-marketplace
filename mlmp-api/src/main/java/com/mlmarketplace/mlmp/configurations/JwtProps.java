@@ -13,6 +13,7 @@ import lombok.Setter;
 public class JwtProps {
 
     private String secret;
+    private String issuer;
     private Long accessTokenExpiration;
     private Long refreshTokenExpiration;
 

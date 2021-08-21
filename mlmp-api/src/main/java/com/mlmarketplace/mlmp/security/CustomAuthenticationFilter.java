@@ -47,10 +47,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                         user.getUsername(),
                         user.getAuthorities().stream()
                                 .map(GrantedAuthority::getAuthority)
-                                .collect(Collectors.toList()),
-                        request);
+                                .collect(Collectors.toList()));
         final var refreshToken =
-                jwtTokenProvider.createRefreshToken(user.getUsername(), request);
+                jwtTokenProvider.createRefreshToken(user.getUsername());
 
         final var body = jwtTokenProvider.writeTokens(accessToken, refreshToken);
 
