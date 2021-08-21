@@ -46,7 +46,7 @@ public class UserController {
         return userService.registerUser(request);
     }
 
-    @GetMapping(path = "/user/refresh", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user/refresh", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public TokensResponse refreshToken(@NonNull @RequestBody final RefreshTokenRequest request) {
         final var decodedJwt = jwtTokenProvider.decodeJwt(request.getRefreshToken());
 
