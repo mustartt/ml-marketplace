@@ -1,13 +1,10 @@
-import userReducer from "./UserReducer/userReducer";
+import { combineReducers } from 'redux';
 
-const defaultState = {
-    userState: null
-}
+import authReducer from './AuthReducer/authReducer';
 
-const rootReducer = (state = defaultState, action: any) => {
-    return {
-        userState: userReducer(state.userState, action)
-    }
-}
+const rootReducer = combineReducers({
+  authState: authReducer,
+});
 
 export default rootReducer;
+export type RootState = ReturnType<typeof rootReducer>;
