@@ -9,6 +9,7 @@ import AuthActions from '../actions/auth/AuthActions';
 import LoginComponent from './components/Login/LoginComponent';
 import AppBgComponent from './components/AppBgComponent';
 import RegisterComponent from './components/RegisterComponent';
+import SearchBox from './components/SearchBox/SearchBox';
 
 const App: React.FC = () => {
 
@@ -57,10 +58,13 @@ const App: React.FC = () => {
             </AppBgComponent>
           </Route>
           <Route path="/">
-            <h1>Home</h1>
+            <SearchBox
+              isImmediate
+              search={(val) => {
+              console.log(val);
+            }} />
           </Route>
         </Switch>
-
       </div>
     </Router>
 
