@@ -2,13 +2,14 @@ import React from 'react';
 
 import { StarIcon as SolidStar } from '@heroicons/react/solid';
 import { ChatIcon, CloudDownloadIcon, StarIcon as EmptyStar } from '@heroicons/react/outline';
+import PriceComponent from './PriceComponent';
 
-type ProductDetails = {
+export type ProductDetails = {
   key: string,
   value: string | JSX.Element;
 }
 
-type PublisherInfo = {
+export type PublisherInfo = {
   name: string;
   profileUrl: string;
 };
@@ -22,6 +23,7 @@ interface GenericProductComponentProps {
   img?: string;
   excerpt?: string;
   details: ProductDetails[];
+  price?: number;
   ratings: number;
   comments: number;
   downloads: number;
@@ -33,8 +35,8 @@ const GenericProductComponent: React.FC<GenericProductComponentProps> = (props) 
     return props.details.map((value, index) =>
       (
         <tr key={index}>
-          <td>value.key</td>
-          <td>value.value</td>
+          <td>{value.key}:</td>
+          <td>{value.value}</td>
         </tr>
       ),
     );
@@ -60,11 +62,14 @@ const GenericProductComponent: React.FC<GenericProductComponentProps> = (props) 
             {props.type}
           </span>
         </div>
-        {/* TODO (HJ): Calculate link from product ID for redirect */}
-        <a href="#"
-           className="block text-2xl py-2 font-semibold text-gray-700 hover:text-indigo-600 transition duration-200 ease-linear">
-          {props.publisher.name}/{props.name}
-        </a>
+        <div className="flex flex-row items-center justify-between">
+          {/* TODO (HJ): Calculate link from product ID for redirect */}
+          <a href="#"
+             className="block text-2xl py-2 font-semibold text-gray-700 hover:text-indigo-600 transition duration-200 ease-linear">
+            {props.publisher.name}/{props.name}
+          </a>
+          <PriceComponent price={props.price} />
+        </div>
         <div className="space-y-3 bg-white lg:bg-gray-100 rounded-lg shadow-lg lg:shadow-none">
           <img className="block lg:hidden rounded-t-lg"
                src={props.img} alt="product image"/>
