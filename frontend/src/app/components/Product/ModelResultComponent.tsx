@@ -7,47 +7,52 @@ interface ModelResultComponentProps {
   productID: string;
 
   name: string;
+  type: string;
   publisher: PublisherInfo;
   img?: string;
   excerpt?: string;
   price?: number;
 
-  updatedAt: Date;
-  type: string;
-  architecture: string;
-  format: string;
-  tags: TagType[];
+  updatedAt?: Date;
+  architecture?: string;
+  format?: string;
+  tags?: TagType[];
 
-  ratings: number;
-  comments: number;
-  downloads: number;
+  ratings?: number;
+  comments?: number;
+  downloads?: number;
 }
 
 const ModelResultComponent: React.FC<ModelResultComponentProps> = (props) => {
+
+  const tags = props.tags || [];
 
   // TODO (HJ): calculate the user redirect link
   const details = [
     {
       key: 'Publisher',
-      value: <a href="#" className="underline hover:text-indigo-600">{props.publisher.name}</a>,
+      value: (
+        <a href="#" className="underline hover:text-indigo-600">
+          {props.publisher.name}
+        </a>),
     },
     {
       key: 'Updated',
-      value: props.updatedAt.toDateString(),
+      value: props.updatedAt?.toDateString() || '',
     },
     {
       key: 'Format',
-      value: props.format,
+      value: props.format || '',
     },
     {
       key: 'Architecture',
-      value: props.architecture,
+      value: props.architecture || '',
     },
     {
       key: 'tags',
       value: (
         <div className="max-w-xs space-y-1">
-          {props.tags.map((tag, index) => (
+          {tags.map((tag, index) => (
               <TagComponent key={index} {...tag}/>
             ),
           )}
@@ -62,6 +67,8 @@ const ModelResultComponent: React.FC<ModelResultComponentProps> = (props) => {
                              type={props.type}
                              name={props.name}
                              publisher={props.publisher}
+                             img={props.img}
+                             excerpt={props.excerpt}
                              price={props.price}
                              details={details}
                              ratings={props.ratings}
