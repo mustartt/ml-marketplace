@@ -13,7 +13,6 @@ public class ModelResponseMapper {
                 .category(model.getCategory())
                 .framework(model.getFramework())
                 .format(model.getFormat())
-                .type(model.getType())
                 .excerpt(model.getExcerpt())
                 .description(model.getDescription())
                 .tags(Arrays.stream(model.getTags().split(","))

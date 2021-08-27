@@ -41,7 +41,6 @@ public class ModelsRepositoryTest {
 
         final var entity = persistedEntity.get();
         assertThat(entity.getName()).isEqualTo(MODEL_NAME);
-        assertThat(entity.getType()).isEqualTo(MODEL_TYPE);
     }
 
     @Test

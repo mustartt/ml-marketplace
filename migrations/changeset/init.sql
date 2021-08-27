@@ -1,53 +1,47 @@
-CREATE TABLE public.model
+create table public.model
 (
-    model_id      integer     NOT NULL,
+    model_id      integer     not null,
 
-    name          varchar(50) NOT NULL,
+    name          varchar(50) not null,
 
-    type          varchar(10) NOT NULL,
     category      varchar(50),
     framework     varchar(50),
     format        varchar(50),
 
-    publisher     integer     NOT NULL,
-
     excerpt       text,
     description   text,
-    create_date   date        NOT NULL,
-    update_date   date        NOT NULL,
+    create_date   date        not null,
+    update_date   date        not null,
 
     storage_url   text,
     tags          text,
     price         decimal,
     instance_size integer,
 
-    CONSTRAINT PK_models PRIMARY KEY (model_id)
+    constraint PK_model primary key (model_id)
 );
 
-
-CREATE TABLE public.dataset
+create table public.dataset
 (
-    dataset_id      integer     NOT NULL,
+    dataset_id    integer     not null,
 
-    name          varchar(50) NOT NULL,
+    name          varchar(50) not null,
 
-    type          varchar(10) NOT NULL,
     category      varchar(50),
     framework     varchar(50),
     format        varchar(50),
 
-    publisher     integer     NOT NULL,
-
     excerpt       text,
     description   text,
-    create_date   date        NOT NULL,
-    update_date   date        NOT NULL,
+    create_date   date        not null,
+    update_date   date        not null,
 
     storage_url   text,
     tags          text,
     price         decimal,
     instance_size integer,
 
-    CONSTRAINT PK_models PRIMARY KEY (dataset_id)
+    constraint PK_dataset primary key (dataset_id)
 );
+
 

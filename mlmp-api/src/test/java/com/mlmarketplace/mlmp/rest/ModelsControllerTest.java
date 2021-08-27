@@ -33,7 +33,6 @@ public class ModelsControllerTest {
     private static final String FRAMEWORK = "tensorflow";
     private static final ModelResponseDTO MODEL_MOCK = ModelResponseDTO.builder()
             .name(MODEL_NAME)
-            .type(MODEL_TYPE)
             .framework(FRAMEWORK)
             .build();
 

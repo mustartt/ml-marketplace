@@ -41,7 +41,6 @@ public class DatasetRepositoryTest {
 
         final var entity = persistedEntity.get();
         assertThat(entity.getName()).isEqualTo(DATASET_NAME);
-        assertThat(entity.getType()).isEqualTo(DATASET_TYPE);
     }
 
     @Test
