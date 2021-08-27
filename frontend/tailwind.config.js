@@ -2,7 +2,11 @@ module.exports = {
   purge: [],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'spacing': 'margin',
+      },
+    },
   },
   variants: {
     extend: {},
