@@ -18,6 +18,7 @@ public class UserResponseMapper {
                 .roles(roles == null ? List.of() : roles.stream()
                         .map(Role::getName)
                         .collect(Collectors.toList()))
+                .userProfile(user.getUserProfile())
                 .build();
     }
 
