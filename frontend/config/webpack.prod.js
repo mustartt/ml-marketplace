@@ -2,9 +2,9 @@
 // noinspection JSUnresolvedFunction
 
 const paths = require('./paths');
-const { merge } = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
-const webpack = require("webpack");
+const webpack = require('webpack');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -25,7 +25,7 @@ module.exports = merge(common, {
     }),
     new webpack.DefinePlugin({
       USE_LOCAL_OIDC: JSON.stringify(false),
-    })
+    }),
   ],
   module: {
     rules: [
@@ -44,13 +44,11 @@ module.exports = merge(common, {
             loader: 'sass-loader',
             options: {
               sourceMap: false,
-              sassOptions: {
-                includePaths: [
-                  '../node_modules/compass-mixins/lib',
-                ]
-              }
-            }
-          }
+            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
         ],
       },
     ],
