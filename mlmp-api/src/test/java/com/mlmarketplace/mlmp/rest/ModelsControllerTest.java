@@ -23,7 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(ModelsController.class)
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 public class ModelsControllerTest {
 
     private static final String ENDPOINT = "/api";

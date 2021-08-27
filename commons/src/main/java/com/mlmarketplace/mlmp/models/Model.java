@@ -2,9 +2,12 @@ package com.mlmarketplace.mlmp.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -23,7 +26,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Table(name = "model")
 public class Model {
@@ -44,7 +46,9 @@ public class Model {
     @Column(name = "format")
     private String format;
 
-    // TODO (HJ): user table joins later when done implementing auth
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id", nullable = false)
+    private User publisher;
 
     @Column(name = "excerpt")
     private String excerpt;

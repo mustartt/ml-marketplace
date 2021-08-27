@@ -3,6 +3,7 @@ package com.mlmarketplace.mlmp.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mlmarketplace.mlmp.models.UserProfile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +27,8 @@ public class UserResponse {
 
     @JsonProperty("roles")
     private List<String> roles;
+
+    @JsonProperty("details")
+    private UserProfile userProfile;
 
 }
