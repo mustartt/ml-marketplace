@@ -29,9 +29,6 @@ public class ModelResponseDTO {
     @JsonProperty("format")
     private String format;
 
-    @JsonProperty("type")
-    private ModelType type;
-
     // user info dto joins
 
     @JsonProperty("excerpt")

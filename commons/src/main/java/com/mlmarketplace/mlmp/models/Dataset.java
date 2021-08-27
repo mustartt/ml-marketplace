@@ -44,9 +44,6 @@ public class Dataset {
     @Column(name = "format")
     private String format;
 
-    @Column(name = "type", nullable = false)
-    private ModelType type = ModelType.DATASET;
-
     // TODO (HJ): user table joins later when done implementing auth
 
     @Column(name = "excerpt")

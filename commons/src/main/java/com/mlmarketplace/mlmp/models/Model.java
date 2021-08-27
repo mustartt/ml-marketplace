@@ -44,9 +44,6 @@ public class Model {
     @Column(name = "format")
     private String format;
 
-    @Column(name = "type", nullable = false)
-    private ModelType type = ModelType.MODEL;
-
     // TODO (HJ): user table joins later when done implementing auth
 
     @Column(name = "excerpt")
