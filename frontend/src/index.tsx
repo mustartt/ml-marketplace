@@ -6,7 +6,19 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import setAuthenticationHeader from './services/AxiosAuthenticationService';
 
-const store = configureStore({authState: {accessToken: '', isAuthenticated: false}});
+const store = configureStore(
+  {
+    authState: {
+      accessToken: '',
+      isAuthenticated: false,
+    },
+    layoutState: {
+      sidebar: {
+        open: true,
+      },
+    },
+  },
+);
 
 store.subscribe(() => {
   setAuthenticationHeader(store.getState().authState);
