@@ -4,8 +4,8 @@ import com.mlmarketplace.mlmp.configurations.PageProps;
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
 import com.mlmarketplace.mlmp.dto.PageResponseDTO;
 import com.mlmarketplace.mlmp.dto.mapper.PageResponseMapper;
-import com.mlmarketplace.mlmp.dto.request.CreateModelRequest;
-import com.mlmarketplace.mlmp.dto.response.CreateModelResponse;
+import com.mlmarketplace.mlmp.dto.request.ModelRequest;
+import com.mlmarketplace.mlmp.dto.response.ModifyModelResponse;
 import com.mlmarketplace.mlmp.service.ModelsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -51,17 +51,18 @@ public class ModelsController {
     }
 
     @PostMapping(value = "/models")
-    public CreateModelResponse addModels(@RequestBody final CreateModelRequest request) {
+    public ModifyModelResponse addModels(@RequestBody final ModelRequest request) {
         return modelsService.createModel(request);
     }
 
     @PutMapping(value = "/models/{id}")
-    public void updateModels() {
-
+    public ModifyModelResponse updateModels(@PathVariable("id") final Long id,
+                                            @RequestBody final ModelRequest request) {
+        return modelsService.updateModels(id, request);
     }
 
     @DeleteMapping(value = "/models/{id}")
-    public void deleteModels() {
-
+    public ModifyModelResponse deleteModels(@PathVariable("id") final Long id) {
+        return modelsService.deleteModels(id);
     }
 }

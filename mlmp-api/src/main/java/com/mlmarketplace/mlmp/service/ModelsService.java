@@ -1,12 +1,17 @@
 package com.mlmarketplace.mlmp.service;
 
+import javax.transaction.Transactional;
+
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
 import com.mlmarketplace.mlmp.dto.mapper.ModelResponseMapper;
-import com.mlmarketplace.mlmp.dto.request.CreateModelRequest;
-import com.mlmarketplace.mlmp.dto.response.CreateModelResponse;
+import com.mlmarketplace.mlmp.dto.request.ModelRequest;
+import com.mlmarketplace.mlmp.dto.request.UpdateModelRequest;
+import com.mlmarketplace.mlmp.dto.response.ModifyModelResponse;
 import com.mlmarketplace.mlmp.models.Model;
 import com.mlmarketplace.mlmp.repository.ModelsRepository;
 import com.mlmarketplace.mlmp.service.validator.model.CreateModelValidator;
+import com.mlmarketplace.mlmp.service.validator.model.DeleteModelValidator;
+import com.mlmarketplace.mlmp.service.validator.model.UpdateModelValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +26,10 @@ public class ModelsService {
 
     private final ModelsRepository modelsRepository;
     private final UserService userService;
+
     private final CreateModelValidator createModelValidator;
+    private final UpdateModelValidator updateModelValidator;
+    private final DeleteModelValidator deleteModelValidator;
 
     public Page<ModelResponseDTO> getAllModels(final Pageable pageable) {
         return modelsRepository.findAll(pageable)
@@ -35,7 +43,7 @@ public class ModelsService {
         return ModelResponseMapper.map(result);
     }
 
-    public CreateModelResponse createModel(final CreateModelRequest request) {
+    public ModifyModelResponse createModel(final ModelRequest request) {
         final var validationResult = createModelValidator.validate(request);
         if (validationResult.isFailed()) {
             return validationResult.getErrorResponse();
@@ -43,7 +51,7 @@ public class ModelsService {
 
         final var currentUser = userService.getCurrentAuthenticatedUser();
         if (currentUser.isEmpty()) {
-            return CreateModelResponse.builder()
+            return ModifyModelResponse.builder()
                     .status(HttpStatus.FORBIDDEN.value())
                     .error("Cannot find current authenticated user!")
                     .build();
@@ -63,17 +71,73 @@ public class ModelsService {
 
         modelsRepository.save(newModel);
 
-        return CreateModelResponse.builder()
+        return ModifyModelResponse.builder()
                 .status(HttpStatus.OK.value())
                 .newModelID(newModel.getId())
                 .build();
     }
 
-    public void updateModels(Model models) {
+    @Transactional
+    public ModifyModelResponse updateModels(final Long id, final ModelRequest request) {
 
+        final var currentUser = userService.getCurrentAuthenticatedUser();
+        if (currentUser.isEmpty()) {
+            return ModifyModelResponse.builder()
+                    .status(HttpStatus.FORBIDDEN.value())
+                    .error("Cannot find current authenticated user!")
+                    .build();
+        }
+
+        final var compositeRequest = getUpdateRequest(request);
+        compositeRequest.setId(id);
+        compositeRequest.setUser(currentUser.get());
+        final var validationResult = updateModelValidator.validate(compositeRequest);
+
+        if (validationResult.isFailed()) {
+            return validationResult.getErrorResponse();
+        }
+
+        final var existingModel = modelsRepository.getModelById(id).orElseThrow();
+        existingModel.setName(request.getName());
+        existingModel.setCategory(request.getCategory());
+        existingModel.setFramework(request.getFramework());
+        existingModel.setFormat(request.getFormat());
+        existingModel.setPublisher(currentUser.get());
+        existingModel.setExcerpt(request.getExcerpt());
+        existingModel.setDescription(request.getDescription());
+        existingModel.setTags(String.join("|", request.getTags()));
+        existingModel.setPrice(request.getPrice());
+
+        return ModifyModelResponse.builder()
+                .status(HttpStatus.OK.value())
+                .newModelID(existingModel.getId())
+                .build();
     }
 
-    public void deleteModels(Model models) {
+    public ModifyModelResponse deleteModels(final Long id) {
+        final var validationResult = deleteModelValidator.validate(id);
+        if (validationResult.isFailed()) {
+            return validationResult.getErrorResponse();
+        }
 
+        modelsRepository.deleteById(id);
+
+        return ModifyModelResponse.builder()
+                .status(HttpStatus.OK.value())
+                .newModelID(id)
+                .build();
+    }
+
+    private UpdateModelRequest getUpdateRequest(final ModelRequest request) {
+        return UpdateModelRequest.builder()
+                .name(request.getName())
+                .category(request.getCategory())
+                .framework(request.getFramework())
+                .format(request.getFormat())
+                .excerpt(request.getExcerpt())
+                .description(request.getDescription())
+                .tags(request.getTags())
+                .price(request.getPrice())
+                .build();
     }
 }

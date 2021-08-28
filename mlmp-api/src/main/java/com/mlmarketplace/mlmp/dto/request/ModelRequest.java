@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateModelRequest {
+public class ModelRequest {
 
     @JsonProperty("name")
     private String name;
