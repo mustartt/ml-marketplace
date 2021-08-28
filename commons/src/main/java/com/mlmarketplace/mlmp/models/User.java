@@ -21,7 +21,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Entity
 @Getter
@@ -40,6 +40,7 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 

@@ -52,14 +52,18 @@ public class UserController {
         final var username = decodedJwt.getSubject();
         final var user = userService.getUser(username);
 
+        if (user.isEmpty()) {
+            throw new JWTDecodeException("User not found!");
+        }
+
         final var accessToken =
                 jwtTokenProvider.createAccessToken(
-                        user.getUsername(),
-                        user.getRoles().stream()
+                        user.get().getUsername(),
+                        user.get().getRoles().stream()
                                 .map(Role::getName)
                                 .collect(Collectors.toList()));
         final var newRefreshToken =
-                jwtTokenProvider.createRefreshToken(user.getUsername());
+                jwtTokenProvider.createRefreshToken(user.get().getUsername());
 
         return TokensResponse.builder()
                 .accessToken(accessToken)
