@@ -1,13 +1,13 @@
 /* coming from webpack define configuration when compiling for production */
-declare const API_LOCATION: string | undefined;
+// declare const API_LOCATION: string | undefined;
 
 let LOCATION = 'localhost:8080';
-if (API_LOCATION) {
-  LOCATION = API_LOCATION;
-}
+// if (API_LOCATION) {
+//   LOCATION = API_LOCATION;
+// }
 /* configures API ENDPOINT LOCATION */
 
-const constructRequestUrl = (path: string): string => `${window.location.protocol}://${LOCATION}/${path}`;
+const constructRequestUrl = (path: string): string => `${window.location.protocol}//${LOCATION}/${path}`;
 
 const ApiRoute = {
   auth: constructRequestUrl('api/user/auth'),

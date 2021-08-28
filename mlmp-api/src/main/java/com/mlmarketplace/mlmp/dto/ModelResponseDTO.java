@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mlmarketplace.mlmp.models.ModelType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ModelResponseDTO {
+
+    @JsonProperty("id")
+    private Long id;
 
     @JsonProperty("name")
     private String name;
@@ -29,7 +31,8 @@ public class ModelResponseDTO {
     @JsonProperty("format")
     private String format;
 
-    // user info dto joins
+    @JsonProperty("publisher")
+    private UserResponse publisher;
 
     @JsonProperty("excerpt")
     private String excerpt;
@@ -43,7 +46,7 @@ public class ModelResponseDTO {
     @JsonProperty("price")
     private double price;
 
-    @JsonProperty("crated_at")
+    @JsonProperty("created_at")
     private Date createDate;
 
     @JsonProperty("updated_at")

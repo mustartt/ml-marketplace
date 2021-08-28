@@ -1,60 +1,45 @@
 import React from 'react';
 import ModelResultComponent from '../../components/Product/ModelResultComponent';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers/rootReducer';
+import { ModelType } from '../../../store/reducers/ModelReducer/modelReducer';
 
 const IMG_URL = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*';
-const DESC = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis sem suscipit lacus rhoncus, eu lobortis ligula pulvinar. Sed placerat imperdiet lectus, in auctor libero. Nullam ut augue enim.';
-
-const MODEL_LIST = [
-  {
-    productID: '1',
-    name: 's-r152x4',
-    type: 'Image Classification',
-    img: IMG_URL,
-    excerpt: DESC,
-    publisher: {
-      name: 'mustartt',
-      profileUrl: '#',
-    },
-  },
-  {
-    productID: '2',
-    name: 'mobilenet_v2',
-    type: 'Image Classification',
-    img: IMG_URL,
-    excerpt: DESC,
-    publisher: {
-      name: 'mustartt',
-      profileUrl: '#',
-    },
-    updatedAt: new Date(),
-    tags: [
-      {
-        name: 'tag',
-        link: '#'
-      }
-    ]
-  },
-  {
-    productID: '3',
-    name: 'resnet50_v1',
-    type: 'Image Classification',
-    img: IMG_URL,
-    excerpt: DESC,
-    publisher: {
-      name: 'mustartt',
-      profileUrl: '#',
-    },
-  },
-];
 
 const ModelPageView: React.FC = () => {
 
+  const models = useSelector((state: RootState) => state.modelState.models);
+
   const renderModels = () => {
-    return MODEL_LIST.map((val, index) => (
-        <ModelResultComponent
+    return models.map((model: ModelType, index: number) => {
+
+        const publisherInfo = {
+          name: model.publisher.username,
+          profileUrl: '', /* not used */
+        };
+
+        const tags = model.tags.map((tag: string) => {
+          return {
+            name: tag,
+            /* calculate redirect links */
+          };
+        });
+
+        return <ModelResultComponent
           key={index}
-          {...val} />
-      ),
+          productID={model.id}
+          img={IMG_URL}
+          name={model.name}
+          publisher={publisherInfo}
+          type={model.category}
+          excerpt={model.excerpt || ''}
+          price={model.price || undefined}
+          updatedAt={model.updateAt || undefined}
+          architecture={model.framework || undefined}
+          format={model.format || undefined}
+          tags={tags}
+        />;
+      },
     );
   };
 

@@ -9,7 +9,7 @@ interface TokensResponse {
 const AuthActions = {
   getAccessToken: () => (dispatch: Dispatch<AuthActionType>) => {
     const refreshToken = window.localStorage.getItem('refresh_token');
-    if (refreshToken) {
+    if (refreshToken && refreshToken !== "undefined") {
       fetch('http://localhost:8080/api/user/refresh', {
         method: 'POST',
         headers: {

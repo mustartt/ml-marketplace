@@ -15,7 +15,7 @@ export type PublisherInfo = {
 };
 
 interface GenericProductComponentProps {
-  productID: string;
+  productID: number;
 
   typeProp: JSX.Element;
   type: string;
@@ -49,17 +49,18 @@ const GenericProductComponent: React.FC<GenericProductComponentProps> = (props) 
 
   const renderRatings = () => {
     const normRating = Math.max(Math.min(Math.round(props.stars || 5), 0), 5);
-    return Array.from(new Array(5), (val) => {
+    return Array.from(new Array(5), (val, index) => {
       if (val < normRating) {
-        return <SolidStar className="w-5 h-5"/>;
+        return <SolidStar key={index} className="w-5 h-5"/>;
       } else {
-        return <EmptyStar className="w-5 h-5"/>;
+        return <EmptyStar key={index} className="w-5 h-5"/>;
       }
     });
   };
 
   return (
-    <div className="justify-self-center flex flex-col xl:flex-row w-full max-w-lg xl:w-full xl:max-w-3xl bg-gray-100 rounded-lg shadow-xl">
+    <div
+      className="justify-self-center flex flex-col xl:flex-row w-full max-w-lg xl:w-full xl:max-w-3xl bg-gray-100 rounded-lg shadow-xl">
       <div className="w-full xl:w-1/2 space-y-5 p-5">
         <div className="flex flex-row space-x-2 text-gray-600 items-center leading-none">
           {props.typeProp}
@@ -73,12 +74,12 @@ const GenericProductComponent: React.FC<GenericProductComponentProps> = (props) 
              className="block text-2xl py-2 font-semibold text-gray-700 hover:text-indigo-600 transition duration-200 ease-linear">
             {props.publisher.name}/{props.name}
           </a>
-          <PriceComponent price={props.price} />
+          <PriceComponent price={props.price}/>
         </div>
         <div className="bg-white xl:bg-gray-100 rounded-lg shadow-lg xl:shadow-none">
           <img className="block xl:hidden rounded-t-lg"
                src={props.img} alt="product image"/>
-          <p className="p-5 xl:border-0 xl:p-0 xl:text-lg xl:font-semibold">
+          <p className="p-5 xl:border-0 xl:p-0 xl:text-lg xl:font-semibold text-gray-700">
             {props.excerpt}
           </p>
         </div>
@@ -95,15 +96,15 @@ const GenericProductComponent: React.FC<GenericProductComponentProps> = (props) 
             <div className="flex flex-row items-center text-indigo-600">
               {renderRatings()}
             </div>
-            <span className="font-semibold">{props.ratings || 0}</span>
+            <span className="font-semibold text-gray-700">{props.ratings || 0}</span>
           </div>
           <div className="flex flex-row items-center space-x-2">
             <ChatIcon className="h-6 w-6 text-indigo-600"/>
-            <span className="font-semibold">{props.comments || 0}</span>
+            <span className="font-semibold text-gray-700">{props.comments || 0}</span>
           </div>
           <div className="flex flex-row items-center space-x-2">
             <CloudDownloadIcon className="h-6 w-6 text-indigo-600"/>
-            <span className="font-semibold">{props.downloads || 0}</span>
+            <span className="font-semibold text-gray-700">{props.downloads || 0}</span>
           </div>
         </div>
       </div>
