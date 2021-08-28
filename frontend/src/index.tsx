@@ -5,18 +5,13 @@ import App from './app/App';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import setAuthenticationHeader from './services/AxiosAuthenticationService';
+import { authInitialState } from './store/reducers/AuthReducer/authReducer';
+import { layoutDefaultState } from './store/reducers/LayoutReducer/layoutReducer';
 
 const store = configureStore(
   {
-    authState: {
-      accessToken: '',
-      isAuthenticated: false,
-    },
-    layoutState: {
-      sidebar: {
-        open: true,
-      },
-    },
+    authState: authInitialState,
+    layoutState: layoutDefaultState,
   },
 );
 

@@ -17,6 +17,8 @@ const defaultState = {
   },
 };
 
+export { defaultState as layoutDefaultState };
+
 const layoutReducer = (state: LayoutState = defaultState, action: LayoutActionType) => {
   switch (action.type) {
     case 'SIDEBAR_OPEN':

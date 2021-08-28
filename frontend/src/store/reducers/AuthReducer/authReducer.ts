@@ -10,24 +10,26 @@ export interface AuthState {
 
 const initialState = {
   isAuthenticated: false,
-  accessToken: ''
-}
+  accessToken: '',
+};
+
+export { initialState as authInitialState };
 
 const authReducer = (state: AuthState = initialState, action: AuthActionType) => {
   switch (action.type) {
-    case "SET_AUTH":
+    case 'SET_AUTH':
       return Object.assign({}, state, {
         isAuthenticated: true,
-        accessToken: action.payload
+        accessToken: action.payload,
       });
-    case "UNSET_AUTH":
+    case 'UNSET_AUTH':
       return Object.assign({}, state, {
         isAuthenticated: false,
-        accessToken: ''
+        accessToken: '',
       });
     default:
       return state;
   }
-}
+};
 
 export default authReducer;
