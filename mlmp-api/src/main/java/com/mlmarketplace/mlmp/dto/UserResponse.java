@@ -1,5 +1,6 @@
 package com.mlmarketplace.mlmp.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,6 +30,6 @@ public class UserResponse {
     private List<String> roles;
 
     @JsonProperty("details")
-    private UserProfile userProfile;
+    private UserProfileResponse userProfile;
 
 }

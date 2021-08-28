@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SidebarToggle from '../components/Sidebar/SidebarToggle';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/reducers/rootReducer';
+import ModelActions from '../../actions/model/ModelActions';
+import ModelResultView from './ModelResult/ModelResultView';
 
 const USER = {
   name: 'John Smith',
@@ -10,18 +14,30 @@ const USER = {
 
 const MainLayout: React.FC = () => {
 
+  const modelState = useSelector((state: RootState) => state.modelState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ModelActions.load(modelState.curr, modelState.pageSize));
+  }, []);
+
   return (
     <div className="relative block md:flex bg-gray-900 w-screen h-screen overflow-hidden">
       <Sidebar brand="ml-marketplace"
                user={USER}
                logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
       </Sidebar>
+
       {/* temporary sidebar toggle */}
       <div className="absolute right-5 top-5">
-        <SidebarToggle />
+        <SidebarToggle/>
       </div>
-      <div className="text-white text-lg w-full h-full bg-red-400 overflow-y-auto p-10">
-        {Array.from({length: 100}, (x, i) => <div key={i}>{i}</div>)}
+
+      <div className="w-full h-full bg-gray-700 text-white overflow-y-auto p-10">
+
+        {/* result view */}
+        <ModelResultView/>
+
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { CubeTransparentIcon } from '@heroicons/react/outline';
 import TagComponent, { TagType } from './TagComponent';
 
 interface ModelResultComponentProps {
-  productID: string;
+  productID: number;
 
   name: string;
   type: string;
