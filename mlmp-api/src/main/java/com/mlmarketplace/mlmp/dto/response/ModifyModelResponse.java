@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateModelResponse {
+public class ModifyModelResponse {
 
     @JsonProperty("status")
     private Integer status;
