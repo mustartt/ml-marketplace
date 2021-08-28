@@ -8,6 +8,7 @@ import com.mlmarketplace.mlmp.security.CustomAuthorizationFilter;
 import com.mlmarketplace.mlmp.service.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,8 +46,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/api/user/auth", "/api/user/refresh", "/api/user/register")
-                .permitAll();
+                .antMatchers("/api/user/auth", "/api/user/refresh", "/api/user/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/models").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/models/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/datasets").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
         http.addFilter(customAuthenticationFilter());

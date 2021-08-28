@@ -1,10 +1,10 @@
 package com.mlmarketplace.mlmp.service;
 
 import javax.transaction.Transactional;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.mlmarketplace.mlmp.dto.RegisterUserRequest;
@@ -15,6 +15,7 @@ import com.mlmarketplace.mlmp.models.User;
 import com.mlmarketplace.mlmp.repository.RoleRepository;
 import com.mlmarketplace.mlmp.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public Optional<User> getCurrentAuthenticatedUser() {
+        final var auth = SecurityContextHolder.getContext().getAuthentication();
+        return this.getUser(auth.getName());
+    }
+
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -44,13 +50,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username).orElseThrow();
         Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
     }
 
     @Override
-    public User getUser(String username) {
+    public Optional<User> getUser(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -75,11 +81,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         final var user = userRepository.findByUsername(s);
-        if (user == null) throw new UsernameNotFoundException("User not found");
+        if (user.isEmpty()) throw new UsernameNotFoundException("User not found");
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
+        user.get().getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
     }
 }

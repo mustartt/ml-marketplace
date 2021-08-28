@@ -4,15 +4,13 @@ import com.mlmarketplace.mlmp.configurations.PageProps;
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
 import com.mlmarketplace.mlmp.dto.PageResponseDTO;
 import com.mlmarketplace.mlmp.dto.mapper.PageResponseMapper;
-import com.mlmarketplace.mlmp.models.Model;
+import com.mlmarketplace.mlmp.dto.request.CreateModelRequest;
+import com.mlmarketplace.mlmp.dto.response.CreateModelResponse;
 import com.mlmarketplace.mlmp.service.ModelsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.RequiredArgsConstructor;
 
@@ -48,31 +45,23 @@ public class ModelsController {
         return PageResponseMapper.map(modelsService.getAllModels(pageable));
     }
 
-    @GetMapping("/models/{id}/")
+    @GetMapping("/models/{id}")
     public ModelResponseDTO fetchModels(@PathVariable("id") final Long id) {
         return modelsService.getModelsById(id);
     }
 
     @PostMapping(value = "/models")
-    public ResponseEntity<Void> addModels(@RequestBody final Model models,
-                                          final UriComponentsBuilder builder) {
-        modelsService.addModels(models);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/models/{id}").buildAndExpand(models.getId()).toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public CreateModelResponse addModels(@RequestBody final CreateModelRequest request) {
+        return modelsService.createModel(request);
     }
 
-    /*TODO: Add authentication.
-     *       Allowing user to change more attributes.
-     *  */
-    @PutMapping(value = "/models/{id}/")
-    public ResponseEntity<Void> updateModels(@PathVariable(name = "id") final Long id,
-                                             @RequestBody final String description) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping(value = "/models/{id}")
+    public void updateModels() {
+
     }
 
-    @DeleteMapping(value = "/models/{id}/")
-    public ResponseEntity<Void> deleteModels(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping(value = "/models/{id}")
+    public void deleteModels() {
+
     }
 }
