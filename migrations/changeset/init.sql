@@ -1,3 +1,6 @@
+-- Create hibernate sequence to use GenerationType.AUTO
+create sequence public.hibernate_sequence;
+
 create table public.user_profile
 (
     profile_id  int8 not null,
