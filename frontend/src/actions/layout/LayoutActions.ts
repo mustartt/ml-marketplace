@@ -15,6 +15,39 @@ const LayoutActions = {
       });
     }
   },
+
+  autoCloseNotification: (
+    type: string, msg: string, duration: number = 5000) => (dispatch: Dispatch<LayoutActionType>) => {
+    dispatch({
+      type: 'NOTIFICATION_OPEN',
+      payload: {
+        type,
+        message: msg,
+      },
+    });
+    setTimeout(() => {
+      dispatch({
+        type: 'NOTIFICATION_CLOSE',
+        payload: null,
+      });
+    }, duration);
+  },
+  openNotification: (type: string, msg: string) => (dispatch: Dispatch<LayoutActionType>) => {
+    dispatch({
+      type: 'NOTIFICATION_OPEN',
+      payload: {
+        type,
+        message: msg,
+      },
+    });
+  },
+  closeNotification: () => (dispatch: Dispatch<LayoutActionType>) => {
+    dispatch({
+      type: 'NOTIFICATION_CLOSE',
+      payload: null,
+    });
+  },
+
 };
 
 export default LayoutActions;

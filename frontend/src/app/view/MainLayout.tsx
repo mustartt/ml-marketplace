@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
-import SidebarToggle from '../components/Sidebar/SidebarToggle';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers/rootReducer';
 import ModelActions from '../../actions/model/ModelActions';
 import ModelResultView from './ModelResult/ModelResultView';
+import GlobalNotifcation from '../components/GlobalNotifcation/GlobalNotifcation';
 
 const USER = {
   name: 'John Smith',
@@ -22,19 +22,23 @@ const MainLayout: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative block md:flex bg-gray-900 w-screen h-screen overflow-hidden">
-      <Sidebar brand="ml-marketplace"
-               user={USER}
-               logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
-      </Sidebar>
+    <>
+      <GlobalNotifcation/>
 
-      <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
+      <div className="relative block md:flex bg-gray-900 w-screen h-screen overflow-hidden">
+        <Sidebar brand="ml-marketplace"
+                 user={USER}
+                 logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
+        </Sidebar>
 
-        {/* result view */}
-        <ModelResultView/>
+        <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
 
+          {/* result view */}
+          <ModelResultView/>
+
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
