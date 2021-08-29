@@ -33,7 +33,7 @@ const MainLayout: React.FC = () => {
         <SidebarToggle/>
       </div>
 
-      <div className="w-full h-full bg-gray-700 text-white overflow-y-auto p-10">
+      <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
 
         {/* result view */}
         <ModelResultView/>

@@ -20,8 +20,7 @@ const SearchBox: React.FC<SearchBoxProps> = (props) => {
   const searchHandler = (event: any) => {
     if (event.key === 'Enter') {
       callSearch();
-    }
-    if (isImmediate) {
+    } else if (isImmediate) {
       if (searchTimeout) {
         clearTimeout(searchTimeout);
       }
@@ -30,16 +29,17 @@ const SearchBox: React.FC<SearchBoxProps> = (props) => {
   };
 
   return (
-    <div
-      className="flex-shrink-0 flex flex-row w-full px-3 py-2 space-x-1 items-center bg-white rounded-t-2xl shadow-xl">
-      <button type="button" className="bg-white hover:bg-gray-200 p-2 rounded-full">
-        <SearchIcon className="h-6 w-6"/>
-      </button>
-      <input type="text"
+    <div className="flex-grow relative text-gray-800 focus-within:text-gray-900">
+      <span className="absolute z-10 inset-y-0 left-0 flex items-center pl-2">
+        <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
+          <SearchIcon className="w-6 h-6"/>
+        </button>
+      </span>
+      <input type="search"
+             className="w-full py-2 text-sm text-white bg-gray-100 rounded-lg pl-10 pr-3 focus:outline-none focus:bg-gray-200 focus:text-gray-900 shadow focus:shadow-xl transition duration-150"
+             placeholder="Search..."
              ref={searchRef}
-             onKeyUp={searchHandler}
-             className="outline-none w-full"
-             placeholder="Search..."/>
+             onKeyUp={searchHandler}/>
     </div>
   );
 };
