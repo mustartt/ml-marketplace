@@ -2,8 +2,15 @@ export type SideBarState = {
   open: boolean;
 }
 
+export type NotificationState = {
+  type: string;
+  message: string;
+  open: boolean;
+}
+
 export interface LayoutState {
   sidebar: SideBarState;
+  notification: NotificationState;
 }
 
 export type LayoutActionType = {
@@ -13,6 +20,11 @@ export type LayoutActionType = {
 
 const defaultState = {
   sidebar: {
+    open: true,
+  },
+  notification: {
+    type: 'warning',
+    message: 'message',
     open: true,
   },
 };
@@ -33,6 +45,21 @@ const layoutReducer = (state: LayoutState = defaultState, action: LayoutActionTy
           open: false,
         },
       });
+
+    case 'NOTIFICATION_OPEN':
+      return Object.assign({}, state, {
+        notification: {
+          type: action.payload.type,
+          message: action.payload.message,
+          open: true,
+        },
+      });
+    case 'NOTIFICATION_CLOSE':
+      state.notification = Object.assign({}, state.notification, {
+        open: false,
+      });
+      return state;
+
     default:
       return state;
   }
