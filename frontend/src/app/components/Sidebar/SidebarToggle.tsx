@@ -18,14 +18,17 @@ const SidebarToggle: React.FC = () => {
   };
 
   return (
-    <div className="inline-block p-2"
-         onClick={toggleSidebar}>
+    <button
+      type="button"
+      className="flex items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 transition duration-150 shadow rounded-lg space-x-1"
+      onClick={toggleSidebar}
+    >
       {
         !sidebarState.open ?
-          <MenuIcon className="w-6 h-6"/> :
-          <XIcon className="w-6 h-6"/>
+          <MenuIcon className="w-5 h-5"/> :
+          <XIcon className="w-5 h-5"/>
       }
-    </div>
+    </button>
   );
 };
 

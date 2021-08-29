@@ -28,11 +28,6 @@ const MainLayout: React.FC = () => {
                logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
       </Sidebar>
 
-      {/* temporary sidebar toggle */}
-      <div className="absolute right-5 top-5">
-        <SidebarToggle/>
-      </div>
-
       <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
 
         {/* result view */}
