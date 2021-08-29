@@ -39,7 +39,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
 
   return (
     <div
-      className="flex flex-row rounded-full w-min px-2 py-1 leading-none bg-gray-200 space-x-2 items-center text-gray-800 font-semibold text-base space-x-1 shadow-lg">
+      className="flex flex-row rounded-full w-min px-2 py-1 leading-none bg-gray-100 space-x-2 items-center text-gray-800 font-semibold text-base space-x-1 shadow-lg">
       <span
         className="cursor-pointer hover:bg-indigo-600 hover:text-gray-200 hover:shadow-md transition duration-150 rounded-full p-1"
         onClick={() => changePage(props.curr - 1)}>

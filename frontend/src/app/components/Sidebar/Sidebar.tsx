@@ -24,8 +24,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
   return (
     <section
-      onClick={() => console.log('b')}
-      className={'w-80 flex-shrink-0 absolute md:static top-0 h-full bg-gray-100 ' +
+      className={'w-80 flex-shrink-0 absolute z-40 md:relative top-0 h-full bg-gray-100 ' +
       (sidebarState.open ? '' : '-ml-80')}>
       <div className="flex flex-col h-full justify-between p-5">
         <div>
