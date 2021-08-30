@@ -3,7 +3,7 @@
 
 const paths = require('./paths');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.tsx', '.ts', 'jsx', '.js']
+    extensions: ['.tsx', '.ts', 'jsx', '.js'],
   },
 
   plugins: [
@@ -44,7 +44,7 @@ module.exports = {
     rules: [
       {
         test: /.tsx?$/,
-        use: ['ts-loader']
+        use: ['ts-loader'],
       },
       {
         test: /\.(scss|css)$/,
@@ -61,19 +61,19 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-            }
+            },
           },
-          'postcss-loader'
+          'postcss-loader',
         ],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline'
+        type: 'asset/inline',
       },
     ],
-  }
+  },
 };
