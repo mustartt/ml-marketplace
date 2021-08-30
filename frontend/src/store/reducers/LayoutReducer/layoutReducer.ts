@@ -8,15 +8,22 @@ export type NotificationState = {
   open: boolean;
 }
 
+export type FilterLayoutState = {
+  open: boolean;
+}
+
 export interface LayoutState {
   sidebar: SideBarState;
   notification: NotificationState;
+  filter: FilterLayoutState;
 }
 
 export type LayoutActionType = {
   type: string;
   payload: any;
 }
+
+const isDesktopWidth = window.innerWidth > 768;
 
 const defaultState = {
   sidebar: {
@@ -25,7 +32,10 @@ const defaultState = {
   notification: {
     type: 'warning',
     message: 'message',
-    open: true,
+    open: false,
+  },
+  filter: {
+    open: false,
   },
 };
 
@@ -59,6 +69,19 @@ const layoutReducer = (state: LayoutState = defaultState, action: LayoutActionTy
         open: false,
       });
       return state;
+
+    case 'FILTER_OPEN':
+      return Object.assign({}, state, {
+        filter: {
+          open: true,
+        },
+      });
+    case 'FILTER_CLOSE':
+      return Object.assign({}, state, {
+        filter: {
+          open: false,
+        },
+      });
 
     default:
       return state;

@@ -48,6 +48,20 @@ const LayoutActions = {
     });
   },
 
+  openFilter: () => (dispatch: Dispatch<LayoutActionType>) => {
+    dispatch({
+        type: 'FILTER_OPEN',
+        payload: null,
+      },
+    );
+  },
+  closeFilter: () => (dispatch: Dispatch<LayoutActionType>) => {
+    dispatch({
+      type: 'FILTER_CLOSE',
+      payload: null,
+    });
+  },
+
 };
 
 export default LayoutActions;
