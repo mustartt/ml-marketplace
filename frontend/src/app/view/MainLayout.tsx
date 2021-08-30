@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers/rootReducer';
 import ModelActions from '../../actions/model/ModelActions';
 import ModelResultView from './ModelResult/ModelResultView';
 import GlobalNotifcation from '../components/GlobalNotifcation/GlobalNotifcation';
+import FilterSlideOver from '../components/Filter/FilterSlideOver';
 
 const USER = {
   name: 'John Smith',
@@ -24,7 +25,11 @@ const MainLayout: React.FC = () => {
   return (
     <>
       <GlobalNotifcation/>
-
+      <FilterSlideOver title={"Test Title"} subheading={"Some subheading"}>
+        <p>
+          test children
+        </p>
+      </FilterSlideOver>
       <div className="relative block md:flex bg-gray-900 w-screen h-screen overflow-hidden">
         <Sidebar brand="ml-marketplace"
                  user={USER}
