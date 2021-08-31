@@ -61,6 +61,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@types/enzyme": "^3.10.9",
     "@types/react-router-dom": "^5.1.8",
+    "@types/redux-form": "^8.3.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
