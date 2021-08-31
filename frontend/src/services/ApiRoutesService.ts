@@ -18,6 +18,14 @@ const ApiRoute = {
   publishModel: constructRequestUrl('api/models'),
   updateModel: constructRequestUrl('api/models/'),
   deleteModel: constructRequestUrl('api/models/'),
+
+  constructModelUrlWithId: (modelId: number) => constructRequestUrl('api/models/') + modelId,
 };
 
 export default ApiRoute;
+
+export interface ModifyModelResponse {
+  status: number,
+  model_id: number,
+  error: string | null,
+}
