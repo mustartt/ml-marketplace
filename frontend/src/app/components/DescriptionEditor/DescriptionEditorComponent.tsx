@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
 interface DescriptionEditorProps {
@@ -13,19 +13,14 @@ const DescriptionEditorComponent: React.FC<DescriptionEditorProps> = (props) => 
   };
 
   return (
-    <div className="p-5">
-      <div className="flex space-x-2 justify-between items-center">
-        <h1 className="font-semibold text-2xl">Markdown Editor</h1>
-      </div>
-      <div className="mt-3">
-        <MDEditor
-          value={props.markdown}
-          onChange={onSourceChange}
-          toolbarHeight={50}
-          preview={'edit'}
-
-        />
-      </div>
+    <div className="shadow-md">
+      <MDEditor
+        value={props.markdown}
+        onChange={onSourceChange}
+        toolbarHeight={50}
+        preview={'edit'}
+        height={450}
+      />
     </div>
   );
 };

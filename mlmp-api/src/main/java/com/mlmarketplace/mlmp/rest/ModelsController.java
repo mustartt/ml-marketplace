@@ -1,8 +1,12 @@
 package com.mlmarketplace.mlmp.rest;
 
+import java.util.List;
+
 import com.mlmarketplace.mlmp.configurations.PageProps;
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
 import com.mlmarketplace.mlmp.dto.PageResponseDTO;
+import com.mlmarketplace.mlmp.dto.UserProfileResponse;
+import com.mlmarketplace.mlmp.dto.UserResponse;
 import com.mlmarketplace.mlmp.dto.mapper.PageResponseMapper;
 import com.mlmarketplace.mlmp.dto.request.ModelRequest;
 import com.mlmarketplace.mlmp.dto.response.ModifyModelResponse;
@@ -47,7 +51,25 @@ public class ModelsController {
 
     @GetMapping("/models/{id}")
     public ModelResponseDTO fetchModels(@PathVariable("id") final Long id) {
-        return modelsService.getModelsById(id);
+        return ModelResponseDTO.builder()
+                .id(1L)
+                .name("regnety400mf_feature_extractor")
+                .category("Image Classification")
+                .framework("RegNetY")
+                .format("tf.js")
+                .publisher(UserResponse.builder()
+                        .id(1L)
+                        .username("mustartt")
+                        .email("mustartt@gmail.com")
+                        .roles(List.of("USER_ROLE"))
+                        .userProfile(UserProfileResponse.builder()
+                                .firstname("Henry")
+                                .lastname("Jiang")
+                                .profileImage("https://images.unsplash.com/photo-1580518324671-c2f0833a3af3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=512q=80")
+                                .build())
+                        .build())
+                .build();
+//        return modelsService.getModelsById(id);
     }
 
     @PostMapping(value = "/models")
