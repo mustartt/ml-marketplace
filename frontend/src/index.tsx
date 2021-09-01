@@ -8,12 +8,14 @@ import setAuthenticationHeader from './services/AxiosAuthenticationService';
 import { authInitialState } from './store/reducers/AuthReducer/authReducer';
 import { layoutDefaultState } from './store/reducers/LayoutReducer/layoutReducer';
 import { modelDefaultState } from './store/reducers/ModelReducer/modelReducer';
+import { userDefaultState } from './store/reducers/UserReducer/userReducer';
 
 const store = configureStore(
   {
     authState: authInitialState,
     layoutState: layoutDefaultState,
     modelState: modelDefaultState,
+    userState: userDefaultState,
   },
 );
 
