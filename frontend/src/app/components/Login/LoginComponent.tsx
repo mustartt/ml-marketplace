@@ -1,23 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import CustomInputField from '../CustomInputField';
 import HeroIcons from '../HeroIcons';
 import { useDispatch } from 'react-redux';
-import AuthActions from '../../../actions/auth/AuthActions';
+import axios from 'axios';
+import AuthActions, { TokensResponse } from '../../../actions/auth/AuthActions';
+import ApiRoute from '../../../services/ApiRoutesService';
+import LayoutActions from '../../../actions/layout/LayoutActions';
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 interface LoginProps {
 
 }
 
 const LoginComponent: React.FC<LoginProps> = () => {
-
   const dispatch = useDispatch();
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = () => {
     if (usernameRef.current && passwordRef.current) {
-      dispatch(AuthActions.authenticate(usernameRef.current.value, passwordRef.current.value));
+      const username = usernameRef.current.value;
+      const password = passwordRef.current.value;
+
+      setIsLoading(true);
+
+      axios.post<TokensResponse>(ApiRoute.auth, {username, password}).then(res => {
+        dispatch(AuthActions.setAuthentication(res.data.access_token, res.data.refresh_token));
+        window.location.assign(ApiRoute.root);
+      }).catch(err => {
+        dispatch(LayoutActions.autoCloseNotification('info', `${err.toString()} Invalid username or password!`));
+      }).finally(() => {
+        setIsLoading(false);
+      });
     }
   };
 
@@ -54,7 +71,12 @@ const LoginComponent: React.FC<LoginProps> = () => {
           <button
             onClick={handleSubmit}
             className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold uppercase">
-            Login
+            <span className="flex justify-center items-center h-6">
+              {
+                !isLoading ? 'Login' :
+                  <LoadingSpinner/>
+              }
+            </span>
           </button>
         </div>
       </div>
