@@ -9,8 +9,9 @@ import { BrowserRouter } from 'react-router-dom';
 import ModelPublishForm from './view/ModelPublishView/ModelPublishForm';
 import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
 import UserViewContainer from './view/UserView/UserViewContainer';
-import LoginComponent from './components/Login/LoginComponent';
+import LoginComponent from './view/UserView/LoginComponent';
 import GlobalNotifcation from './components/GlobalNotification/GlobalNotification';
+import RegisterComponent from './view/UserView/RegisterComponent';
 
 const App: React.FC = () => {
 
@@ -32,6 +33,12 @@ const App: React.FC = () => {
 
         <Route path="/models/publish">
           <ModelPublishLayout/>
+        </Route>
+
+        <Route path="/register">
+          <UserViewContainer>
+            <RegisterComponent/>
+          </UserViewContainer>
         </Route>
 
         <Route path="/login">
