@@ -10,6 +10,7 @@ let LOCATION = 'localhost:8080';
 const constructRequestUrl = (path: string): string => `${window.location.protocol}//${LOCATION}/${path}`;
 
 const ApiRoute = {
+  root: constructRequestUrl(''),
   auth: constructRequestUrl('api/user/auth'),
   authRefresh: constructRequestUrl('api/user/refresh'),
 

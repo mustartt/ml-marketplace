@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 
 import './index.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/reducers/rootReducer';
+import { useDispatch } from 'react-redux';
 import AuthActions from '../actions/auth/AuthActions';
 import MainLayout from './view/MainLayout';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import ModelPublishForm from './view/ModelPublishView/ModelPublishForm';
 import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
-
+import UserViewContainer from './view/UserView/UserViewContainer';
+import LoginComponent from './components/Login/LoginComponent';
+import GlobalNotifcation from './components/GlobalNotification/GlobalNotification';
 
 const App: React.FC = () => {
 
-  const authState = useSelector((state: RootState) => state.authState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,15 +22,22 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
+      <GlobalNotifcation/>
       <Switch>
         <Route path="/test">
           <div className="bg-gray-900 w-screen h-screen">
-          <ModelPublishForm/>
+            <ModelPublishForm/>
           </div>
         </Route>
 
         <Route path="/models/publish">
           <ModelPublishLayout/>
+        </Route>
+
+        <Route path="/login">
+          <UserViewContainer>
+            <LoginComponent/>
+          </UserViewContainer>
         </Route>
 
         <Route path="/">
