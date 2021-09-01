@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { ModelActionType } from '../../store/reducers/ModelReducer/modelReducer';
 import axios from 'axios';
 import ApiRoute from '../../services/ApiRoutesService';
-import { PublisherResponseType } from '../user/userActions';
+import { UserResponseType } from '../user/userActions';
 
 export type ModelResponseType = {
   id: number;
@@ -18,7 +18,7 @@ export type ModelResponseType = {
   create_at: string | null;
   update_at: string | null;
 
-  publisher: PublisherResponseType;
+  publisher: UserResponseType;
 
   tags: string[],
   price: number | null;

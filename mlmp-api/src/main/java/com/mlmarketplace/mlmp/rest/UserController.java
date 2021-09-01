@@ -1,5 +1,6 @@
 package com.mlmarketplace.mlmp.rest;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,12 +9,11 @@ import com.mlmarketplace.mlmp.dto.RefreshTokenRequest;
 import com.mlmarketplace.mlmp.dto.RegisterUserRequest;
 import com.mlmarketplace.mlmp.dto.TokensResponse;
 import com.mlmarketplace.mlmp.dto.UserResponse;
+import com.mlmarketplace.mlmp.dto.mapper.UserResponseMapper;
 import com.mlmarketplace.mlmp.models.Role;
-import com.mlmarketplace.mlmp.models.User;
 import com.mlmarketplace.mlmp.service.JwtTokenProvider;
 import com.mlmarketplace.mlmp.service.UserService;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,9 +36,10 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @PostMapping(path = "/user/save")
-    public ResponseEntity<User> saveUser(@RequestBody final User user) {
-        return ResponseEntity.ok(userService.saveUser(user));
+    @GetMapping(path = "/user/self")
+    public UserResponse getCurrentUser(final Principal principal) {
+        final var user = userService.getUser(principal.getName()).orElseThrow();
+        return UserResponseMapper.map(user);
     }
 
     @PostMapping(path = "/user/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

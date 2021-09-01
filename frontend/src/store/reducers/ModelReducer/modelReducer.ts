@@ -1,5 +1,5 @@
 import { ModelResponseType } from '../../../actions/model/ModelActions';
-import { PublisherResponseType } from '../../../actions/user/userActions';
+import { UserResponseType } from '../../../actions/user/userActions';
 
 const defaultState = {
   isLoading: false,
@@ -22,7 +22,7 @@ export type ModelType = {
   framework: string | null;
   format: string | null;
 
-  publisher: PublisherResponseType;
+  publisher: UserResponseType;
 
   excerpt: string | null;
   description: string | null;
