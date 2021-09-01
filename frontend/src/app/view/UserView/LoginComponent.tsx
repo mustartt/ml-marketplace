@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
-import CustomInputField from '../CustomInputField';
-import HeroIcons from '../HeroIcons';
+import CustomInputField from '../../components/Input/CustomInputField';
+import HeroIcons from '../../components/HeroIcons';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import AuthActions, { TokensResponse } from '../../../actions/auth/AuthActions';
 import ApiRoute from '../../../services/ApiRoutesService';
 import LayoutActions from '../../../actions/layout/LayoutActions';
-import LoadingSpinner from '../Utils/LoadingSpinner';
+import LoadingSpinner from '../../components/Utils/LoadingSpinner';
 import UserActions from '../../../actions/user/userActions';
 import { Redirect } from 'react-router';
 

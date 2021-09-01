@@ -13,6 +13,7 @@ const ApiRoute = {
   auth: constructRequestUrl('api/user/auth'),
   authRefresh: constructRequestUrl('api/user/refresh'),
   userSelf: constructRequestUrl('api/user/self'),
+  register: constructRequestUrl('api/user/register'),
 
   getModelsPaged: constructRequestUrl('api/models'),
   getModel: constructRequestUrl('api/models/'),
