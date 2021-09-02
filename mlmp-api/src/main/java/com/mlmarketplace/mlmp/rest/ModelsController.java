@@ -8,6 +8,7 @@ import com.mlmarketplace.mlmp.dto.PageResponseDTO;
 import com.mlmarketplace.mlmp.dto.UserProfileResponse;
 import com.mlmarketplace.mlmp.dto.UserResponse;
 import com.mlmarketplace.mlmp.dto.mapper.PageResponseMapper;
+import com.mlmarketplace.mlmp.dto.mapper.PriceRangeMapper;
 import com.mlmarketplace.mlmp.dto.request.ModelRequest;
 import com.mlmarketplace.mlmp.dto.response.ModifyModelResponse;
 import com.mlmarketplace.mlmp.service.ModelsService;
@@ -41,12 +42,18 @@ public class ModelsController {
 
     @GetMapping(path = "/models", produces = MediaType.APPLICATION_JSON_VALUE)
     public PageResponseDTO<ModelResponseDTO> fetchModels(@Nullable @RequestParam(name = "page") final Integer page,
-                                                         @Nullable @RequestParam(name = "size") final Integer pageSize) {
+                                                         @Nullable @RequestParam(name = "size") final Integer pageSize,
+                                                         @Nullable @RequestParam(name = "category") final String category,
+                                                         @Nullable @RequestParam(name = "framework") final String framework,
+                                                         @Nullable @RequestParam(name = "format") final String format,
+                                                         @Nullable @RequestParam(name = "search") final String search,
+                                                         @Nullable @RequestParam(name = "price") final String priceRange) {
         final var defaultPage = page == null ? 0 : page;
         final var defaultPageSize = pageSize == null ? pageProps.getSize() : pageSize;
         final var pageable = PageRequest.of(defaultPage, defaultPageSize);
+        final var range = new PriceRangeMapper(priceRange);
 
-        return PageResponseMapper.map(modelsService.getAllModels(pageable));
+        return PageResponseMapper.map(modelsService.search(search, category, framework, format, range, pageable));
     }
 
     @GetMapping("/models/{id}")

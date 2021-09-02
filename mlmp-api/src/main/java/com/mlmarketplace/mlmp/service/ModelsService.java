@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
 import com.mlmarketplace.mlmp.dto.mapper.ModelResponseMapper;
+import com.mlmarketplace.mlmp.dto.mapper.PriceRangeMapper;
 import com.mlmarketplace.mlmp.dto.request.ModelRequest;
 import com.mlmarketplace.mlmp.dto.request.UpdateModelRequest;
 import com.mlmarketplace.mlmp.dto.response.ModifyModelResponse;
@@ -31,8 +32,17 @@ public class ModelsService {
     private final UpdateModelValidator updateModelValidator;
     private final DeleteModelValidator deleteModelValidator;
 
-    public Page<ModelResponseDTO> getAllModels(final Pageable pageable) {
-        return modelsRepository.findAll(pageable)
+    public Page<ModelResponseDTO> search(final String search,
+                                         final String category,
+                                         final String framework,
+                                         final String format,
+                                         final PriceRangeMapper range,
+                                         Pageable pageable) {
+        return modelsRepository.search(
+                        search,
+                        category, framework, format,
+                        range.getLowerbound(), range.getUpperbound(),
+                        pageable)
                 .map(ModelResponseMapper::map);
     }
 
