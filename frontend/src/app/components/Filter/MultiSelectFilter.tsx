@@ -30,7 +30,7 @@ const Option: React.FC<OptionProps> = ({value, onClick}) => {
   return (
     <li
       onClick={() => onClick(value)}
-      className="cursor-default select-none relative py-2 pl-10 pr-4">
+      className="cursor-pointer select-none relative py-2 pl-10 pr-4">
       <span className="font-normal block truncate">
        {value}
       </span>
@@ -42,7 +42,7 @@ const ActiveOption: React.FC<OptionProps> = ({value, onClick}) => {
   return (
     <li
       onClick={() => onClick(value)}
-      className="bg-indigo-100 cursor-default select-none relative py-2 pl-10 pr-4">
+      className="bg-indigo-100 cursor-pointer select-none relative py-2 pl-10 pr-4">
       <span className="font-semibold block truncate">
        {value}
       </span>
@@ -122,6 +122,9 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({filters, active, o
         <Transition
           show={open}
           as={Fragment}
+          enter="transition ease-out duration-75"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
           leave="transition ease-in duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
