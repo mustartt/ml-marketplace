@@ -38,9 +38,6 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
       <Transition
         show={sidebarState.open}
         as={Fragment}
-        enter="transform transition duration-500"
-        enterFrom="-translate-x-full"
-        enterTo="translate-x-0"
         leave="transform transition duration-500"
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-full"
