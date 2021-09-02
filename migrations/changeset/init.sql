@@ -13,10 +13,10 @@ create table public.user_profile
 
 create table public."user"
 (
-    user_id    int8 not null,
+    user_id    int8 unique         not null,
     email      varchar(255),
     password   varchar(255),
-    username   varchar(255),
+    username   varchar(255) unique not null,
     profile_id int8,
 
     constraint user_id_pk primary key (user_id),
@@ -54,17 +54,17 @@ create table public.model
 
     excerpt       text,
     description   text,
-    create_date   timestamp        not null,
-    update_date   timestamp        not null,
+    create_date   timestamp   not null default now(),
+    update_date   timestamp   not null default now(),
 
     publisher_id  int8        not null,
 
     storage_url   text,
     tags          text,
-    price         float8,
+    price         float8               default 0,
     instance_size integer,
 
-    constraint PK_model primary key (model_id),
+    constraint model_id_pk primary key (model_id),
     constraint publisher_id_fk foreign key (publisher_id) references public."user" (user_id)
 );
 
@@ -80,13 +80,41 @@ create table public.dataset
 
     excerpt       text,
     description   text,
-    create_date   timestamp        not null,
-    update_date   timestamp        not null,
+    create_date   timestamp   not null default now(),
+    update_date   timestamp   not null default now(),
+
+    publisher_id  int8        not null,
 
     storage_url   text,
     tags          text,
-    price         float8,
+    price         float8               default 0,
     instance_size integer,
 
-    constraint PK_dataset primary key (dataset_id)
+    constraint dataset_id_pk primary key (dataset_id),
+    constraint publisher_id_fk foreign key (publisher_id) references public."user" (user_id)
 );
+
+create view aggregate_product_query_view as
+select model_id as id,
+       name,
+       category,
+       framework,
+       format,
+       excerpt,
+       update_date,
+       publisher_id,
+       price,
+       'model'  as type
+from public.model
+union all
+select dataset_id as id,
+       name,
+       category,
+       framework,
+       format,
+       excerpt,
+       update_date,
+       publisher_id,
+       price,
+       'dataset'  as type
+from public.dataset;
