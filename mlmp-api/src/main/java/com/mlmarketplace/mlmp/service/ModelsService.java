@@ -1,6 +1,7 @@
 package com.mlmarketplace.mlmp.service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 import com.mlmarketplace.mlmp.dto.ModelResponseDTO;
 import com.mlmarketplace.mlmp.dto.mapper.ModelResponseMapper;
@@ -33,9 +34,9 @@ public class ModelsService {
     private final DeleteModelValidator deleteModelValidator;
 
     public Page<ModelResponseDTO> search(final String search,
-                                         final String category,
-                                         final String framework,
-                                         final String format,
+                                         final List<String> category,
+                                         final List<String> framework,
+                                         final List<String> format,
                                          final PriceRangeMapper range,
                                          Pageable pageable) {
         return modelsRepository.search(

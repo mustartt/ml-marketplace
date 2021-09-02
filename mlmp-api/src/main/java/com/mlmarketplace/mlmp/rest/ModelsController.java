@@ -43,9 +43,9 @@ public class ModelsController {
     @GetMapping(path = "/models", produces = MediaType.APPLICATION_JSON_VALUE)
     public PageResponseDTO<ModelResponseDTO> fetchModels(@Nullable @RequestParam(name = "page") final Integer page,
                                                          @Nullable @RequestParam(name = "size") final Integer pageSize,
-                                                         @Nullable @RequestParam(name = "category") final String category,
-                                                         @Nullable @RequestParam(name = "framework") final String framework,
-                                                         @Nullable @RequestParam(name = "format") final String format,
+                                                         @Nullable @RequestParam(name = "category") final List<String> category,
+                                                         @Nullable @RequestParam(name = "framework") final List<String> framework,
+                                                         @Nullable @RequestParam(name = "format") final List<String> format,
                                                          @Nullable @RequestParam(name = "search") final String search,
                                                          @Nullable @RequestParam(name = "price") final String priceRange) {
         final var defaultPage = page == null ? 0 : page;
