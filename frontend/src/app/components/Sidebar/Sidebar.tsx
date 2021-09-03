@@ -74,9 +74,12 @@ const Sidebar: React.FC<SidebarProps> = ({brand, logo, children}) => {
             </div>
             {
               userState.user &&
-              <SidebarUserTab name={getDisplayName(userState.user)}
-                              info={userState.user.username}
-                              image={userState.user.userProfile.profileImage}/>
+              <SidebarUserTab
+                name={getDisplayName(userState.user)}
+                info={userState.user.username}
+                image={userState.user.userProfile.profileImage}
+                profileLink="/profile"
+              />
             }
           </div>
         </section>

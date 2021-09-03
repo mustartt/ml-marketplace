@@ -12,8 +12,8 @@ public class PageResponseMapper {
                 .content(page.getContent())
                 .page(pageable.getPageNumber())
                 .pageSize(pageable.getPageSize())
-                .size(page.getSize())
-                .totalSize(page.getTotalElements())
+                .size(page.getTotalElements())
+                .totalSize(page.getTotalPages())
                 .build();
     }
 }

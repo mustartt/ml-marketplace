@@ -11,6 +11,7 @@ import UserViewContainer from './view/UserView/UserViewContainer';
 import LoginComponent from './view/UserView/LoginComponent';
 import GlobalNotifcation from './components/GlobalNotification/GlobalNotification';
 import RegisterComponent from './view/UserView/RegisterComponent';
+import UserProfileView from './view/UserView/UserProfileView';
 
 const App: React.FC = () => {
 
@@ -28,6 +29,12 @@ const App: React.FC = () => {
           <div className="bg-gray-900 w-screen h-screen">
 
           </div>
+        </Route>
+
+        <Route path="/profile">
+          <UserViewContainer>
+            <UserProfileView/>
+          </UserViewContainer>
         </Route>
 
         <Route path="/models/publish">

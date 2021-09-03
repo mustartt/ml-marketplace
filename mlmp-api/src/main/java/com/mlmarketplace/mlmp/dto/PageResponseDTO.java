@@ -25,7 +25,7 @@ public class PageResponseDTO<E> {
     private int pageSize;
 
     @JsonProperty("size")
-    private int size;
+    private long size;
 
     @JsonProperty("total_size")
     private long totalSize;
