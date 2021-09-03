@@ -7,15 +7,23 @@ const defaultState = {
   filters: [
     {
       name: 'category',
+      type: 'multi',
       filters: [],
     },
     {
       name: 'framework',
+      type: 'multi',
       filters: [],
     },
     {
       name: 'format',
+      type: 'multi',
       filters: [],
+    },
+    {
+      name: 'price',
+      type: 'range',
+      filters: [20, 200],
     },
   ],
   models: [],
@@ -48,7 +56,8 @@ export type ModelType = {
 
 export type FilterType = {
   name: string;
-  filters: string[] | null;
+  type: string;
+  filters: Array<string | number> | null;
 }
 
 export interface ModelState {
