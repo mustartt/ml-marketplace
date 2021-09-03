@@ -47,6 +47,18 @@ const getFiltersQueryParam = (filters: FilterType[]) => {
 };
 
 const ModelActions = {
+  updateFilters: (filter: FilterType) =>
+    (dispatch: Dispatch<ModelActionType>, getState: () => RootState) => {
+      const {modelState: {filters}} = getState();
+      const newFilterSet = [filter, ...filters.filter((e: FilterType) => e.name !== filter.name)];
+      dispatch({
+        type: 'CHANGE_MODEL_FILTERS',
+        payload: {
+          filters: newFilterSet,
+        },
+      });
+    },
+
   load: (search: string) => (
     dispatch: Dispatch<ModelActionType>, getState: () => RootState) => {
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import ModelResultView from './ModelResult/ModelResultView';
-import FilterSlideOver from '../components/Filter/FilterSlideOver';
 
 const USER = {
   name: 'John Smith',
@@ -11,26 +10,20 @@ const USER = {
 
 const MainLayout: React.FC = () => {
   return (
-    <>
-      <FilterSlideOver title={'Test Title'} subheading={'Some subheading'}>
-        <p>
-          test children
-        </p>
-      </FilterSlideOver>
-      <div className="relative block md:flex bg-gray-900 w-screen h-screen overflow-hidden">
-        <Sidebar brand="ml-marketplace"
-                 user={USER}
-                 logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
-        </Sidebar>
+    <div className="relative block md:flex bg-gray-900 w-screen h-screen overflow-hidden">
+      <Sidebar brand="ml-marketplace"
+               user={USER}
+               logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
+      </Sidebar>
 
-        <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
+      <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
 
-          {/* result view */}
-          <ModelResultView/>
+        {/* result view */}
+        <ModelResultView/>
 
-        </div>
       </div>
-    </>
+    </div>
+
   );
 };
 

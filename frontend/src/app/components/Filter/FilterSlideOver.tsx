@@ -8,20 +8,16 @@ import { Transition } from '@headlessui/react';
 interface FilterSlideOverProps {
   title: string,
   subheading?: string,
+  submitFilter: () => void,
 }
 
-const FilterSlideOver: React.FC<FilterSlideOverProps> = ({title, subheading, children}) => {
+const FilterSlideOver: React.FC<FilterSlideOverProps> = ({title, subheading, submitFilter, children}) => {
 
   const state = useSelector((state: RootState) => state.layoutState.filter);
   const dispatch = useDispatch();
 
   const closeFilter = () => {
     dispatch(LayoutActions.closeFilter());
-  };
-
-  const submitFilter = () => {
-    /* dispatch update filter action */
-    console.log('filter dispatched')
   };
 
   return (
@@ -35,7 +31,7 @@ const FilterSlideOver: React.FC<FilterSlideOverProps> = ({title, subheading, chi
       leaveFrom="translate-x-0"
       leaveTo="translate-x-full"
     >
-      <aside className="fixed z-40 right-0 h-screen flex flex-col justify-between w-80 bg-white">
+      <aside className="fixed z-40 right-0 h-screen flex flex-col justify-between w-80 bg-white shadow-xl">
         <header className="bg-indigo-600 text-gray-100 px-5 py-3 md:py-5 space-y-2 shadow-md">
           <div className="flex justify-between items-center">
             <h1 className="font-semibold text-lg">{title}</h1>
