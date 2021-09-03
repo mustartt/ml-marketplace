@@ -15,7 +15,7 @@ const SidebarUserTab: React.FC<SidebarUserTabProps> = (props) => {
   return (
     <div className="flex flex-row justify-between items-center w-full p-2 border-0 border-t-2">
       <div className="flex flex-row">
-        <img className="h-10 w-10 rounded-full shadow-lg"
+        <img className="h-10 w-10 border-2 border-indigo-600 rounded-full shadow-xl"
              src={image}
              alt="User Icon"/>
         <div className="flex flex-col px-3">

@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import { AuthActionType } from '../../store/reducers/AuthReducer/authReducer';
+import UserActions from '../user/userActions';
 
 export interface TokensResponse {
   access_token: string,
@@ -7,7 +8,7 @@ export interface TokensResponse {
 }
 
 const AuthActions = {
-  getAccessToken: () => (dispatch: Dispatch<AuthActionType>) => {
+  getAccessToken: () => (dispatch: Dispatch<AuthActionType | any>) => {
     const refreshToken = window.localStorage.getItem('refresh_token');
     if (refreshToken && refreshToken !== 'undefined') {
       fetch('http://localhost:8080/api/user/refresh', {
@@ -25,6 +26,7 @@ const AuthActions = {
           type: 'SET_AUTH',
           payload: result.access_token,
         });
+        dispatch(UserActions.setCurrentUser());
       }).catch(error => {
         console.error(error);
         dispatch({

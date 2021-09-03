@@ -6,7 +6,7 @@ export type User = {
     firstname: string;
     lastname: string;
     profileImage: string;
-  } | null;
+  };
 }
 
 export type UserState = {
@@ -21,14 +21,16 @@ export { defaultState as userDefaultState };
 
 export type UserActionType = {
   type: string;
-  payload: any;
+  payload: null | {
+    user: User;
+  };
 };
 
-const userReducer = (state: any = defaultState, action: UserActionType) => {
+const userReducer = (state: UserState = defaultState, action: UserActionType) => {
   switch (action.type) {
     case 'SET_USER':
       return Object.assign({}, state, {
-        user: action.payload.user,
+        user: action.payload?.user,
       });
     case 'UNSET_USER':
       return {
