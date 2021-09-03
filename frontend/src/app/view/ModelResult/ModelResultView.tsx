@@ -11,6 +11,7 @@ import ModelActions from '../../../actions/model/ModelActions';
 import FilterSlideOver from '../../components/Filter/FilterSlideOver';
 import MultiSelectFilter from '../../components/Filter/MultiSelectFilter';
 import { FilterType } from '../../../store/reducers/ModelReducer/modelReducer';
+import RangeSlider from '../../components/Slider/RangeSlider';
 
 const FILTER_OPTIONS_CATEGORY = [
   'Image Generator', 'Video Classification', 'Text Embedding', 'Image Classification', 'Generation',
@@ -45,7 +46,7 @@ const ModelResultView = () => {
     searchRef.current.search = search;
   };
 
-  const createMultiSelectFilter = (options: string[], name: string) => {
+  const createMultiSelectFilter = (options: string[], name: string, type: string) => {
     return (
       <MultiSelectFilter
         filters={options}
@@ -53,6 +54,7 @@ const ModelResultView = () => {
         onChange={(newFilters) => {
           dispatch(ModelActions.updateFilters({
             name,
+            type,
             filters: newFilters,
           }));
         }}/>
@@ -75,9 +77,22 @@ const ModelResultView = () => {
         </pre>
 
         <div className="p-3">
-          {createMultiSelectFilter(FILTER_OPTIONS_CATEGORY, 'category')}
-          {createMultiSelectFilter(FILTER_OPTIONS_FRAMEWORK, 'framework')}
-          {createMultiSelectFilter(FILTER_OPTIONS_FORMAT, 'format')}
+          <div className="px-3">
+            <RangeSlider
+              value={modelState.filters.find((filter: FilterType) => filter.name === 'price').filters}
+              min={0}
+              max={2000}
+              onChange={newValue => {
+                dispatch(ModelActions.updateFilters({
+                  name: 'price',
+                  type: 'range',
+                  filters: newValue,
+                }));
+              }}/>
+          </div>
+          {createMultiSelectFilter(FILTER_OPTIONS_CATEGORY, 'category', 'multi')}
+          {createMultiSelectFilter(FILTER_OPTIONS_FRAMEWORK, 'framework', 'multi')}
+          {createMultiSelectFilter(FILTER_OPTIONS_FORMAT, 'format', 'multi')}
         </div>
 
       </FilterSlideOver>

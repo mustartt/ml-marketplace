@@ -16,7 +16,7 @@ const MainLayout: React.FC = () => {
                logo="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
       </Sidebar>
 
-      <div className="w-full h-full bg-gray-700 text-white overflow-y-auto">
+      <div className="w-full h-full bg-gray-700 overflow-y-auto">
 
         {/* result view */}
         <ModelResultView/>

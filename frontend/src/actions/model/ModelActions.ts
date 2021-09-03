@@ -38,10 +38,22 @@ const getFilterQueryStrings = (filter: FilterType) => {
   return filter.filters.join(',');
 };
 
+const formatRangeParam = (filter: FilterType) => {
+  if (filter.filters) {
+    return `${filter.filters[0]},${filter.filters[1]}`;
+  }
+};
+
 const getFiltersQueryParam = (filters: FilterType[]) => {
   const queryObject: { [key: string]: string | undefined } = {};
   filters.forEach((filter) => {
-    queryObject[filter.name] = getFilterQueryStrings(filter);
+    switch (filter.type) {
+      case 'multi':
+        queryObject[filter.name] = getFilterQueryStrings(filter);
+        break;
+      case 'range':
+        queryObject[filter.name] = formatRangeParam(filter);
+    }
   });
   return queryObject;
 };

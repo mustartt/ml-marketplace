@@ -6,7 +6,6 @@ import AuthActions from '../actions/auth/AuthActions';
 import MainLayout from './view/MainLayout';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import ModelPublishForm from './view/ModelPublishView/ModelPublishForm';
 import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
 import UserViewContainer from './view/UserView/UserViewContainer';
 import LoginComponent from './view/UserView/LoginComponent';
@@ -27,7 +26,7 @@ const App: React.FC = () => {
       <Switch>
         <Route path="/test">
           <div className="bg-gray-900 w-screen h-screen">
-            <ModelPublishForm/>
+
           </div>
         </Route>
 
