@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Pagination from '../../components/Pagination/Pagination';
 import ModelPageView from './ModelPageView';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers/rootReducer';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import FilterButton from '../../components/Filter/FilterButton';
 import SidebarToggle from '../../components/Sidebar/SidebarToggle';
 import useWindowDimensions from '../../../services/WindowDimensionUtils';
+import ModelActions from '../../../actions/model/ModelActions';
 
 const ModelResultView = () => {
 
@@ -14,6 +15,15 @@ const ModelResultView = () => {
   const isDesktopBreakPoint = () => width > 768;
 
   const modelState = useSelector((state: RootState) => state.modelState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ModelActions.load(''));
+  }, []);
+
+  const onSearch = (search: string) => {
+    dispatch(ModelActions.load(search));
+  };
 
   return (
     <div className="bg-gray-100 h-full">
@@ -23,9 +33,7 @@ const ModelResultView = () => {
           <SidebarToggle/>
         }
 
-        <SearchBox search={search => {
-          console.log(search);
-        }}/>
+        <SearchBox search={onSearch}/>
 
         <FilterButton/>
 

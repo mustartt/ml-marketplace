@@ -4,7 +4,20 @@ import { UserResponseType } from '../../../actions/user/userActions';
 const defaultState = {
   isLoading: false,
   error: null,
-  /* query params */
+  filters: [
+    {
+      name: 'category',
+      filters: [],
+    },
+    {
+      name: 'framework',
+      filters: [],
+    },
+    {
+      name: 'format',
+      filters: [],
+    },
+  ],
   models: [],
   curr: 0,
   pageSize: 10,
@@ -33,10 +46,15 @@ export type ModelType = {
   price: number | null;
 }
 
+export type FilterType = {
+  name: string;
+  filters: string[] | null;
+}
+
 export interface ModelState {
   isLoading: boolean;
   error: string | null;
-  /* query params */
+  filters: FilterType[];
   models: ModelType[];
   curr: number;
   pageSize: number;
@@ -50,6 +68,11 @@ export type ModelActionType = {
 
 const modelReducer = (state: ModelState = defaultState, action: ModelActionType) => {
   switch (action.type) {
+    case 'CHANGE_MODEL_FILTERS':
+      return Object.assign({}, state, {
+        filters: action.payload.filters,
+      });
+
     case 'LOAD_MODEL_START':
       return Object.assign({}, state, {
         isLoading: true,
