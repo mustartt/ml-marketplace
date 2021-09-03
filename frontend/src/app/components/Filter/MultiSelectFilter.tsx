@@ -94,7 +94,7 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({filters, active, o
   };
 
   return (
-    <div className="inline-block w-72">
+    <div className="inline-block w-72 text-black">
       <ul className={`${active.length > 0 ?
         'p-1' :
         'p-0'} bg-gray-200 rounded-lg shadow-md leading-none space-x-1 space-y-1`}>
@@ -122,9 +122,6 @@ const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({filters, active, o
         <Transition
           show={open}
           as={Fragment}
-          enter="transition ease-out duration-75"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
           leave="transition ease-in duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
