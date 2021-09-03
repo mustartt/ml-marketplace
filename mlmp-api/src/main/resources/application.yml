@@ -31,6 +31,7 @@ app:
 page:
   size: 10
 
+
 stripe:
   keys:
     public: pk_test_51JR4AZK2tcx4NjRfD1FUYZbPHTkntBKFCBouAXvUxbg53a6IAlVXhpOg6SStl1gPFEcmpZnCeGh7qSIcZ4CPnz1T00hRQ7l3vB
