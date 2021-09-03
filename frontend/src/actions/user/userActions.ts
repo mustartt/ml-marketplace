@@ -4,9 +4,9 @@ import axios from 'axios';
 import ApiRoute from '../../services/ApiRoutesService';
 
 export type UserDetailsResponseType = {
-  firstname: string | null;
-  lastname: string | null;
-  profile_img: string | null;
+  firstname: string;
+  lastname: string;
+  profile_img: string;
 }
 
 export type UserResponseType = {
@@ -14,17 +14,17 @@ export type UserResponseType = {
   username: string;
   email: string;
   roles: string[];
-  details: UserDetailsResponseType | null;
+  details: UserDetailsResponseType;
 };
 
 const UserActions = {
   setCurrentUser: () => (dispatch: Dispatch<UserActionType>) => {
     axios.get<UserResponseType>(ApiRoute.userSelf).then(res => {
-      const userProfile = res.data.details ? {
+      const userProfile = {
         firstname: res.data.details.firstname,
         lastname: res.data.details.lastname,
         profileImage: res.data.details.profile_img,
-      } : null;
+      };
       dispatch({
         type: 'SET_USER',
         payload: {

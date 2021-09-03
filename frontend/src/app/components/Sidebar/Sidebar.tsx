@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import { UserInfo } from '../../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers/rootReducer';
 import SidebarUserTab from './SidebarUserTab';
@@ -7,17 +6,21 @@ import { XIcon } from '@heroicons/react/outline';
 import LayoutActions from '../../../actions/layout/LayoutActions';
 import { Transition } from '@headlessui/react';
 import useWindowDimensions from '../../../services/WindowDimensionUtils';
+import { User } from '../../../store/reducers/UserReducer/userReducer';
 
 interface SidebarProps {
   brand: string;
   logo: string;
-  user: UserInfo;
-  children?: React.ReactNode;
 }
 
-const Sidebar: React.FC<SidebarProps> = (props) => {
+const getDisplayName = (user: User) => {
+  return `${user.userProfile.firstname} ${user.userProfile.lastname}`;
+};
+
+const Sidebar: React.FC<SidebarProps> = ({brand, logo, children}) => {
 
   const sidebarState = useSelector((state: RootState) => state.layoutState.sidebar);
+  const userState = useSelector((state: RootState) => state.userState);
   const dispatch = useDispatch();
 
   const {width} = useWindowDimensions();
@@ -48,9 +51,9 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             <div>
               <header className="flex flex-row p-3 justify-between items-center border-0 border-b-2">
                 <div className="flex flex-row space-x-2">
-                  <img className="w-auto h-8" src={props.logo}
+                  <img className="w-auto h-8" src={logo}
                        alt="Header Image"/>
-                  <h1 className="leading-tight font-bold text-2xl">{props.brand}</h1>
+                  <h1 className="leading-tight font-bold text-2xl">{brand}</h1>
                 </div>
                 {
                   !isDesktopBreakPoint() &&
@@ -64,14 +67,17 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
               <nav className="mt-5 h-full">
                 <ul className="flex flex-col space-y-1">
-                  {props.children}
+                  {children}
                 </ul>
               </nav>
 
             </div>
-            <SidebarUserTab name={props.user.name}
-                            image={props.user.img || ''}
-                            info={props.user.info}/>
+            {
+              userState.user &&
+              <SidebarUserTab name={getDisplayName(userState.user)}
+                              info={userState.user.username}
+                              image={userState.user.userProfile.profileImage}/>
+            }
           </div>
         </section>
       </Transition>
