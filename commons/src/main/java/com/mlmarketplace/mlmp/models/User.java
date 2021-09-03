@@ -47,11 +47,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "profile_id",
-            referencedColumnName = "profile_id"
-    )
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "user")
     private UserProfile userProfile;
 
     @ManyToMany(fetch = FetchType.EAGER)

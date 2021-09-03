@@ -12,6 +12,8 @@ import com.mlmarketplace.mlmp.dto.UserResponse;
 import com.mlmarketplace.mlmp.dto.mapper.UserResponseMapper;
 import com.mlmarketplace.mlmp.models.Role;
 import com.mlmarketplace.mlmp.models.User;
+import com.mlmarketplace.mlmp.models.UserProfile;
+import com.mlmarketplace.mlmp.repository.ProfileRepository;
 import com.mlmarketplace.mlmp.repository.RoleRepository;
 import com.mlmarketplace.mlmp.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +31,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    private final static String DEFAULT_USER_PROFILE = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";
+
     private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -67,6 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public UserResponse registerUser(final RegisterUserRequest request) {
         final var user = User.builder()
@@ -75,6 +81,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
                 .build();
         userRepository.save(user);
+
+        final var userProfile = UserProfile.builder()
+                .user(user)
+                .firstname(request.getUsername())
+                .lastname("")
+                .profileImage(DEFAULT_USER_PROFILE)
+                .build();
+        profileRepository.save(userProfile);
+
         return UserResponseMapper.map(user);
     }
 

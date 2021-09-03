@@ -1,26 +1,26 @@
 -- Create hibernate sequence to use GenerationType.AUTO
 create sequence public.hibernate_sequence;
 
-create table public.user_profile
-(
-    profile_id  int8 not null,
-    firstname   varchar(50),
-    lastname    varchar(50),
-    profile_img varchar(255),
-
-    primary key (profile_id)
-);
-
 create table public."user"
 (
     user_id    int8 unique         not null,
     email      varchar(255),
     password   varchar(255),
     username   varchar(255) unique not null,
-    profile_id int8,
 
-    constraint user_id_pk primary key (user_id),
-    constraint user_profile_fk foreign key (profile_id) references public.user_profile (profile_id)
+    constraint user_id_pk primary key (user_id)
+);
+
+create table public.user_profile
+(
+    profile_id  int8 not null,
+    user_id     int8 not null,
+    firstname   varchar(50),
+    lastname    varchar(50),
+    profile_img varchar(255),
+
+    primary key (profile_id),
+    constraint user_id_fk foreign key (user_id) references public."user"
 );
 
 create table public."role"
