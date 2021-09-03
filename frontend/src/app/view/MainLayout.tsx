@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/reducers/rootReducer';
-import ModelActions from '../../actions/model/ModelActions';
 import ModelResultView from './ModelResult/ModelResultView';
 import FilterSlideOver from '../components/Filter/FilterSlideOver';
 
@@ -13,14 +10,6 @@ const USER = {
 };
 
 const MainLayout: React.FC = () => {
-
-  const modelState = useSelector((state: RootState) => state.modelState);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(ModelActions.load(modelState.curr, modelState.pageSize));
-  }, []);
-
   return (
     <>
       <FilterSlideOver title={'Test Title'} subheading={'Some subheading'}>
