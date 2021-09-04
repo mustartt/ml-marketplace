@@ -80,14 +80,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .email(request.getEmail())
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
                 .build();
-        userRepository.save(user);
-
         final var userProfile = UserProfile.builder()
-                .user(user)
                 .firstname(request.getUsername())
-                .lastname("")
-                .profileImage(DEFAULT_USER_PROFILE)
                 .build();
+        user.setUserProfile(userProfile);
+        userProfile.setUser(user);
+
+        userRepository.save(user);
         profileRepository.save(userProfile);
 
         return UserResponseMapper.map(user);

@@ -35,13 +35,16 @@ public class UserProfile implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "firstname")
-    private String firstname;
+    @Column(name = "firstname", nullable = false)
+    @Builder.Default
+    private String firstname = "";
 
-    @Column(name = "lastname")
-    private String lastname;
+    @Column(name = "lastname", nullable = false)
+    @Builder.Default
+    private String lastname = "";
 
-    @Column(name = "profile_img")
-    private String profileImage;
+    @Column(name = "profile_img", nullable = false)
+    @Builder.Default
+    private String profileImage = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";
 
 }
