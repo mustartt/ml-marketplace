@@ -37,32 +37,40 @@ public class Model {
     private String name;
 
     @Column(name = "category")
-    private String category;
+    @Builder.Default
+    private String category = "Other";
 
     @Column(name = "framework")
-    private String framework;
+    @Builder.Default
+    private String framework = "Other";
 
     @Column(name = "format")
-    private String format;
+    @Builder.Default
+    private String format = "Other";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id", nullable = false)
     private User publisher;
 
     @Column(name = "excerpt")
-    private String excerpt;
+    @Builder.Default
+    private String excerpt = "";
 
     @Column(name = "description")
-    private String description;
+    @Builder.Default
+    private String description = "";
 
     @Column(name = "storage_url")
-    private String storageUrl;
+    @Builder.Default
+    private String storageUrl = "";
 
     @Column(name = "tags")
-    private String tags;
+    @Builder.Default
+    private String tags = "";
 
     @Column(name = "price")
-    private double price;
+    @Builder.Default
+    private double price = 0.0;
 
     @CreationTimestamp
     @Column(name = "create_date", nullable = false)
