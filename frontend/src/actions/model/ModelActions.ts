@@ -1,37 +1,9 @@
 import { Dispatch } from 'redux';
-import { FilterType, ModelActionType } from '../../store/reducers/ModelReducer/modelReducer';
+import { FilterType, ModelAction } from '../../store/reducers/ModelReducer/modelReducer';
 import axios from 'axios';
 import ApiRoute from '../../services/ApiRoutesService';
-import { UserResponseType } from '../user/userActions';
 import { RootState } from '../../store/reducers/rootReducer';
-
-export type ModelResponseType = {
-  id: number;
-
-  name: string;
-
-  category: string;
-  framework: string | null;
-  format: string | null;
-
-  excerpt: string | null;
-  description: string | null;
-  create_at: string | null;
-  update_at: string | null;
-
-  publisher: UserResponseType;
-
-  tags: string[],
-  price: number | null;
-}
-
-interface ModelPageResponseType {
-  content: ModelResponseType[],
-  page: number,
-  page_size: number,
-  size: number,
-  total_size: number,
-}
+import { ModelResponseType, PageResponseType } from '../../types/ResponseTypes';
 
 const getFilterQueryStrings = (filter: FilterType) => {
   if (!filter.filters || filter.filters.length == 0) return undefined;
@@ -60,19 +32,17 @@ const getFiltersQueryParam = (filters: FilterType[]) => {
 
 const ModelActions = {
   updateFilters: (filter: FilterType) =>
-    (dispatch: Dispatch<ModelActionType>, getState: () => RootState) => {
+    (dispatch: Dispatch<ModelAction>, getState: () => RootState) => {
       const {modelState: {filters}} = getState();
       const newFilterSet = [filter, ...filters.filter((e: FilterType) => e.name !== filter.name)];
       dispatch({
         type: 'CHANGE_MODEL_FILTERS',
-        payload: {
-          filters: newFilterSet,
-        },
+        payload: newFilterSet,
       });
     },
 
   load: (search: string) => (
-    dispatch: Dispatch<ModelActionType>, getState: () => RootState) => {
+    dispatch: Dispatch<ModelAction>, getState: () => RootState) => {
 
     const {modelState: {filters, curr, pageSize}} = getState();
 
@@ -93,20 +63,19 @@ const ModelActions = {
       },
     });
 
-    axios.get<ModelPageResponseType>(ApiRoute.getModelsPaged, queryParam).then(res => {
+    axios.get<PageResponseType<ModelResponseType>>(ApiRoute.getModelsPaged, queryParam).then(res => {
       dispatch({
         type: 'LOAD_MODEL_SUCCESS',
         payload: {
           models: res.data.content,
-          totalPage: res.data.total_size,
+          totalPages: res.data.total_pages,
+          totalSize: res.data.total_size,
         },
       });
     }).catch(err => {
       dispatch({
         type: 'LOAD_MODEL_FAIL',
-        payload: {
-          errorMessage: err,
-        },
+        payload: err,
       });
     });
   },

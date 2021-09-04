@@ -1,5 +1,4 @@
-import { ModelResponseType } from '../../../actions/model/ModelActions';
-import { UserResponseType } from '../../../actions/user/userActions';
+import { mapModelResponseToModel, ModelResponseType, ModelType } from '../../../types/ResponseTypes';
 
 const defaultState = {
   isLoading: false,
@@ -30,29 +29,10 @@ const defaultState = {
   curr: 0,
   pageSize: 10,
   totalPage: 1,
+  totalSize: 0,
 };
 
 export { defaultState as modelDefaultState };
-
-export type ModelType = {
-  id: number;
-
-  name: string;
-
-  category: string;
-  framework: string | null;
-  format: string | null;
-
-  publisher: UserResponseType;
-
-  excerpt: string | null;
-  description: string | null;
-  createAt: Date | null;
-  updateAt: Date | null;
-
-  tags: string[],
-  price: number | null;
-}
 
 export type FilterType = {
   name: string;
@@ -68,18 +48,38 @@ export interface ModelState {
   curr: number;
   pageSize: number;
   totalPage: number;
+  totalSize: number;
 }
 
-export type ModelActionType = {
-  type: string;
-  payload: any;
-}
+export type ModelAction =
+  {
+    type: 'CHANGE_MODEL_FILTERS', payload: FilterType[]
+  } |
+  {
+    type: 'LOAD_MODEL_START',
+    payload: {
+      curr: number,
+      pageSize: number
+    }
+  } |
+  {
+    type: 'LOAD_MODEL_SUCCESS',
+    payload: {
+      models: ModelResponseType[],
+      totalPages: number,
+      totalSize: number,
+    }
+  } |
+  {
+    type: 'LOAD_MODEL_FAIL',
+    payload: string,
+  };
 
-const modelReducer = (state: ModelState = defaultState, action: ModelActionType) => {
+const modelReducer = (state: ModelState = defaultState, action: ModelAction) => {
   switch (action.type) {
     case 'CHANGE_MODEL_FILTERS':
       return Object.assign({}, state, {
-        filters: action.payload.filters,
+        filters: action.payload,
       });
 
     case 'LOAD_MODEL_START':
@@ -91,24 +91,19 @@ const modelReducer = (state: ModelState = defaultState, action: ModelActionType)
       });
 
     case 'LOAD_MODEL_SUCCESS':
-      const models = action.payload.models.map((model: ModelResponseType) => {
-        return Object.assign({}, model, {
-          createAt: model.create_at ? new Date(model.create_at) : null,
-          updatedAt: model.update_at ? new Date(model.update_at) : null,
-        });
-      });
-
+      const models = action.payload.models.map(model => mapModelResponseToModel(model));
       return Object.assign({}, state, {
         isLoading: false,
         models,
-        totalPage: action.payload.totalPage,
+        totalPage: action.payload.totalPages,
+        totalSize: action.payload.totalSize,
       });
 
     case 'LOAD_MODEL_FAIL':
       return Object.assign({}, state, {
         isLoading: false,
         models: [],
-        error: action.payload.errorMessage,
+        error: action.payload,
       });
 
     default:
