@@ -24,10 +24,10 @@ public class UserResponse {
     private String username;
 
     @JsonProperty("email")
-    private String email;
+    private String email = "";
 
     @JsonProperty("roles")
-    private List<String> roles;
+    private List<String> roles = List.of();
 
     @JsonProperty("details")
     private UserProfileResponse userProfile;
