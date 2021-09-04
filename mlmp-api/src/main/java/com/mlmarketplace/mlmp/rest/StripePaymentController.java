@@ -1,33 +1,28 @@
 package com.mlmarketplace.mlmp.rest;
 
+import com.google.gson.Gson;
+import com.mlmarketplace.mlmp.dto.UserResponse;
 import com.mlmarketplace.mlmp.dto.payment.StripePaymentDTO;
 import com.mlmarketplace.mlmp.dto.payment.StripeResponse;
 import com.mlmarketplace.mlmp.service.StripePaymentService;
 import com.stripe.exception.StripeException;
-import com.stripe.model.checkout.Session;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.PaymentIntentCreateParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
-
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/payment")
+@RequestMapping(path = "/api")
 public class StripePaymentController {
 
     @Value("${stripe.keys.public}")
@@ -36,10 +31,20 @@ public class StripePaymentController {
     @Autowired
     private StripePaymentService stripePaymentService;
 
-    @PostMapping("/create-checkout-session")
-    public ResponseEntity<StripeResponse> createCharge(@RequestBody List<StripePaymentDTO> paymentDTOList) throws StripeException {
-        Session session = stripePaymentService.createSession(paymentDTOList);
-        StripeResponse stripeResponse = new StripeResponse(session.getId());
-        return new ResponseEntity<>(stripeResponse, HttpStatus.OK);
+    private static Gson gson = new Gson();
+
+    //TODO: Allow different currencies.
+    @PostMapping("/payment/create-payment-intent")
+    public StripeResponse createPaymentIntent(@RequestBody StripePaymentDTO stripePaymentDTO) throws StripeException {
+            PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
+                    .setCurrency("usd")
+                    .setAmount((long) stripePaymentDTO.totalPrice() * 100L)
+                    .build();
+            PaymentIntent intent = PaymentIntent.create(createParams);
+            StripeResponse stripeResponse = new StripeResponse(intent.getClientSecret());
+            return stripeResponse;
     }
+
+
+
 }

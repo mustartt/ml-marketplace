@@ -10,5 +10,5 @@ import lombok.Builder;
 @Builder
 @AllArgsConstructor
 public class StripeResponse {
-    private String sessionId;
+    private String clientSecret;
 }

@@ -44,8 +44,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        //TODO: Remove /** when in production
         http.authorizeRequests()
-                .antMatchers("/api/user/auth", "/api/user/refresh", "/api/user/register")
+                .antMatchers("/api/user/auth", "/api/user/refresh", "/api/user/register", "/**")
                 .permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
