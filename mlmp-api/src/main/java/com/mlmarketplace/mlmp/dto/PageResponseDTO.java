@@ -24,10 +24,10 @@ public class PageResponseDTO<E> {
     @JsonProperty("page_size")
     private int pageSize;
 
-    @JsonProperty("size")
-    private long size;
-
     @JsonProperty("total_size")
     private long totalSize;
+
+    @JsonProperty("total_pages")
+    private long totalPages;
 
 }
