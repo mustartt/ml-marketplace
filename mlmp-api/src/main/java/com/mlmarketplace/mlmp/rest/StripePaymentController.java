@@ -1,7 +1,5 @@
 package com.mlmarketplace.mlmp.rest;
 
-import com.google.gson.Gson;
-import com.mlmarketplace.mlmp.dto.UserResponse;
 import com.mlmarketplace.mlmp.dto.payment.StripePaymentDTO;
 import com.mlmarketplace.mlmp.dto.payment.StripeResponse;
 import com.mlmarketplace.mlmp.service.StripePaymentService;
@@ -31,7 +29,6 @@ public class StripePaymentController {
     @Autowired
     private StripePaymentService stripePaymentService;
 
-    private static Gson gson = new Gson();
 
     //TODO: Allow different currencies.
     @PostMapping("/payment/create-payment-intent")

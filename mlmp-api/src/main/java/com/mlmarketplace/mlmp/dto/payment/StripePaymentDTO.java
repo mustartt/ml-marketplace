@@ -15,7 +15,8 @@ import lombok.Builder;
 @AllArgsConstructor
 public class StripePaymentDTO {
     @SerializedName("items")
-    Object[] items;
+    Model[] items;
+    Dataset[]
 
     //TODO: Return the total cost of all items in cart
     public double totalPrice() {
