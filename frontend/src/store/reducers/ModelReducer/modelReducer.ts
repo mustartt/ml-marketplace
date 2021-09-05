@@ -37,7 +37,7 @@ export { defaultState as modelDefaultState };
 export type FilterType = {
   name: string;
   type: string;
-  filters: Array<string | number> | null;
+  filters: Array<any> | null;
 }
 
 export interface ModelState {
@@ -53,7 +53,8 @@ export interface ModelState {
 
 export type ModelAction =
   {
-    type: 'CHANGE_MODEL_FILTERS', payload: FilterType[]
+    type: 'CHANGE_MODEL_FILTERS',
+    payload: FilterType[]
   } |
   {
     type: 'LOAD_MODEL_START',

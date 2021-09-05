@@ -2,7 +2,7 @@ import React from 'react';
 import ModelResultComponent from '../../components/Product/ModelResultComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers/rootReducer';
-import { ModelType } from '../../../store/reducers/ModelReducer/modelReducer';
+import { ModelType } from '../../../types/ResponseTypes';
 
 const IMG_URL = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*';
 
@@ -33,7 +33,7 @@ const ModelPageView: React.FC = () => {
           type={model.category}
           excerpt={model.excerpt || ''}
           price={model.price || undefined}
-          updatedAt={model.updateAt || undefined}
+          updatedAt={model.updatedAt || undefined}
           architecture={model.framework || undefined}
           format={model.format || undefined}
           tags={tags}
