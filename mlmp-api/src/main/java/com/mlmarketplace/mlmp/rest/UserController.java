@@ -16,6 +16,7 @@ import com.mlmarketplace.mlmp.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,12 @@ public class UserController {
     @GetMapping(path = "/user/self")
     public UserResponse getCurrentUser(final Principal principal) {
         final var user = userService.getUser(principal.getName()).orElseThrow();
+        return UserResponseMapper.map(user);
+    }
+
+    @GetMapping(path = "/user/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserResponse getUserByUsername(@NonNull @PathVariable final String username) {
+        final var user = userService.getUser(username).orElseThrow();
         return UserResponseMapper.map(user);
     }
 

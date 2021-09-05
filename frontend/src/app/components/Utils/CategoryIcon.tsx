@@ -3,6 +3,7 @@ import { ArchiveIcon, CubeTransparentIcon, DatabaseIcon } from '@heroicons/react
 
 interface CategoryIconProps {
   category: string;
+  className?: string;
 }
 
 const CLASSNAME = 'w-6 h-6';
@@ -18,9 +19,9 @@ const getProductIcon = (category: string) => {
   }
 };
 
-const CategoryIcon: React.FC<CategoryIconProps> = ({category}) => {
+const CategoryIcon: React.FC<CategoryIconProps> = ({category, className}) => {
   const Icon = getProductIcon(category);
-  return <Icon className={CLASSNAME}/>;
+  return <Icon className={className || CLASSNAME}/>;
 };
 
 export default CategoryIcon;
