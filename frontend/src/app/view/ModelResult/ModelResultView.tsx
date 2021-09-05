@@ -116,7 +116,7 @@ const ModelResultView = () => {
                 console.log('a');
               }}
           >
-            Showing Results: x/y
+            Showing Results: {modelState.curr * modelState.pageSize + modelState.models.length} / {modelState.totalSize}
           </h2>
           <Pagination curr={modelState.curr}
                       totalPage={modelState.totalPage}

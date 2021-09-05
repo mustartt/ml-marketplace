@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
-import { Redirect } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 interface SidebarUserTabProps {
   name: string;
@@ -9,15 +9,17 @@ interface SidebarUserTabProps {
   profileLink?: string;
 }
 
-const SidebarUserTab: React.FC<SidebarUserTabProps> = ({name, info, image, profileLink}) => {
-
-  const [redirect, setRedirect] = useState(false);
+const SidebarUserTab: React.FC<SidebarUserTabProps & RouteComponentProps>
+  = ({
+       history,
+       name,
+       info,
+       image,
+       profileLink,
+     }) => {
 
   return (
     <>
-      {
-        redirect && <Redirect to={profileLink || '/profile'}/>
-      }
       <div className="flex flex-row justify-between items-center w-full p-2 border-0 border-t-2">
         <div className="flex flex-row">
           <img className="h-10 w-10 border-2 border-indigo-600 rounded-full shadow-xl"
@@ -31,7 +33,9 @@ const SidebarUserTab: React.FC<SidebarUserTabProps> = ({name, info, image, profi
         <div
           id="sidebar-user-profile"
           className="cursor-pointer p-1 hover:bg-gray-200 hover:shadow-md rounded-md text-gray-700"
-          onClick={() => setRedirect(true)}>
+          onClick={() => {
+            history.push(profileLink || '/profile');
+          }}>
           <AdjustmentsIcon className="w-6 h-6"/>
         </div>
       </div>
@@ -39,4 +43,4 @@ const SidebarUserTab: React.FC<SidebarUserTabProps> = ({name, info, image, profi
   );
 };
 
-export default SidebarUserTab;
+export default withRouter(SidebarUserTab);

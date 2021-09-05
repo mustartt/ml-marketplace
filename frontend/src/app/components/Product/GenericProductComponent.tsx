@@ -3,6 +3,7 @@ import React from 'react';
 import { StarIcon as SolidStar } from '@heroicons/react/solid';
 import { ChatIcon, CloudDownloadIcon, StarIcon as EmptyStar } from '@heroicons/react/outline';
 import PriceComponent from './PriceComponent';
+import { Link } from 'react-router-dom';
 
 export type ProductDetails = {
   key: string,
@@ -69,11 +70,12 @@ const GenericProductComponent: React.FC<GenericProductComponentProps> = (props) 
           </span>
         </div>
         <div className="flex flex-row flex-wrap items-center justify-between">
-          {/* TODO (HJ): Calculate link from product ID for redirect */}
-          <a href="#"
-             className="block text-2xl py-2 font-semibold text-gray-700 hover:text-indigo-600 transition duration-200 ease-linear">
-            {props.publisher.name}/{props.name}
-          </a>
+          <Link to={`/model/${props.productID}`}>
+            <span
+              className="block text-2xl py-2 font-semibold text-gray-700 hover:text-indigo-600 transition duration-200 ease-linear">
+              {props.publisher.name}/{props.name}
+            </span>
+          </Link>
           <PriceComponent price={props.price}/>
         </div>
         <div className="bg-white xl:bg-gray-100 rounded-lg shadow-lg xl:shadow-none">
