@@ -2,6 +2,7 @@ import GenericProductComponent, { PublisherInfo } from './GenericProductComponen
 import React from 'react';
 import { CubeTransparentIcon } from '@heroicons/react/outline';
 import TagComponent, { TagType } from './TagComponent';
+import { Link } from 'react-router-dom';
 
 interface ModelResultComponentProps {
   productID: number;
@@ -27,14 +28,16 @@ const ModelResultComponent: React.FC<ModelResultComponentProps> = (props) => {
 
   const tags = props.tags || [];
 
-  // TODO (HJ): calculate the user redirect link
   const details = [
     {
       key: 'Publisher',
       value: (
-        <a href="#" className="underline hover:text-indigo-600">
+        <Link to={`/user/${props.publisher.name}`}>
+           <span>
           {props.publisher.name}
-        </a>),
+        </span>
+        </Link>
+      ),
     },
     {
       key: 'Updated',

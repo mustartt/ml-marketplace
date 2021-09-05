@@ -31,11 +31,11 @@ const ModelPageView: React.FC = () => {
           name={model.name}
           publisher={publisherInfo}
           type={model.category}
-          excerpt={model.excerpt || ''}
-          price={model.price || undefined}
-          updatedAt={model.updatedAt || undefined}
-          architecture={model.framework || undefined}
-          format={model.format || undefined}
+          excerpt={model.excerpt}
+          price={model.price}
+          updatedAt={model.updatedAt}
+          architecture={model.framework}
+          format={model.format}
           tags={tags}
         />;
       },
