@@ -50,7 +50,7 @@ const ModelResultView = () => {
     return (
       <MultiSelectFilter
         filters={options}
-        active={modelState.filters.find((filter: FilterType) => filter.name === name).filters}
+        active={modelState.filters.find((filter: FilterType) => filter.name === name)?.filters || []}
         onChange={(newFilters) => {
           dispatch(ModelActions.updateFilters({
             name,
@@ -79,7 +79,7 @@ const ModelResultView = () => {
         <div className="p-3">
           <div className="px-3">
             <RangeSlider
-              value={modelState.filters.find((filter: FilterType) => filter.name === 'price').filters}
+              value={modelState.filters.find((filter: FilterType) => filter.name === 'price')?.filters || []}
               min={0}
               max={2000}
               onChange={newValue => {

@@ -3,15 +3,16 @@ import React, { useEffect } from 'react';
 import './index.scss';
 import { useDispatch } from 'react-redux';
 import AuthActions from '../actions/auth/AuthActions';
-import MainLayout from './view/MainLayout';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
 import UserViewContainer from './view/UserView/UserViewContainer';
 import LoginComponent from './view/UserView/LoginComponent';
 import GlobalNotifcation from './components/GlobalNotification/GlobalNotification';
 import RegisterComponent from './view/UserView/RegisterComponent';
 import UserProfileView from './view/UserView/UserProfileView';
+import SingleModelView from './view/SingleModelView/SingleModelView';
+import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
+import MainLayout from './view/MainLayout';
 
 const App: React.FC = () => {
 
@@ -26,19 +27,13 @@ const App: React.FC = () => {
       <GlobalNotifcation/>
       <Switch>
         <Route path="/test">
-          <div className="bg-gray-900 w-screen h-screen">
 
-          </div>
         </Route>
 
         <Route path="/profile">
           <UserViewContainer>
             <UserProfileView/>
           </UserViewContainer>
-        </Route>
-
-        <Route path="/models/publish">
-          <ModelPublishLayout/>
         </Route>
 
         <Route path="/register">
@@ -51,6 +46,14 @@ const App: React.FC = () => {
           <UserViewContainer>
             <LoginComponent/>
           </UserViewContainer>
+        </Route>
+
+        <Route path="/model/:id" render={({match}) =>
+          <SingleModelView id={match.params.id}/>
+        }/>
+
+        <Route path="/models/publish">
+          <ModelPublishLayout/>
         </Route>
 
         <Route path="/">
