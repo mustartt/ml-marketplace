@@ -30,6 +30,8 @@ const App: React.FC = () => {
 
         </Route>
 
+        <Route path="/user/:username" component={UserProfileView}/>
+
         <Route path="/profile">
           <UserViewContainer>
             <UserProfileView/>

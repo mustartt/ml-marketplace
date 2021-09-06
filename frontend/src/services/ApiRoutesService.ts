@@ -22,6 +22,7 @@ const ApiRoute = {
   deleteModel: constructRequestUrl('api/models/'),
 
   constructModelUrlWithId: (modelId: number) => constructRequestUrl('api/models/') + modelId,
+  constructProfileUrlWithUsername: (username: string) => constructRequestUrl('api/user/') + username,
 };
 
 export default ApiRoute;
