@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UserSummary from './ProfileComponent/UserSummary';
+import UserSummary, { LoadingUserSummary } from './ProfileComponent/UserSummary';
 import ModelExcerpt from './ProfileComponent/ModelExcerpt';
 import { mapUserResponseToUser, ModelType, UserType } from '../../../types/ResponseTypes';
 import { useParams } from 'react-router-dom';
@@ -50,7 +50,7 @@ const UserProfileView: React.FC = () => {
       <div className="flex-grow max-w-4xl h-full">
         <div className="p-1 block sm:flex">
           {
-            !user ? 'loading' :
+            !user ? <LoadingUserSummary/> :
               <UserSummary user={user}/>
           }
           <div className="mt-4 w-full max-w-2xl">
