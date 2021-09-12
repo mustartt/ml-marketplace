@@ -5,6 +5,7 @@ import CategoryIcon from '../../components/Utils/CategoryIcon';
 import MDEditor from '@uiw/react-md-editor';
 import { Link } from 'react-router-dom';
 import ViewTagComponent from '../../components/Utils/ViewTagComponent';
+import { ModelType } from '../../../types/ResponseTypes';
 
 interface ModelButtonProps {
   icon: JSX.Element;
@@ -22,22 +23,7 @@ const ModelButton: React.FC<ModelButtonProps> = ({icon, children}) => {
 };
 
 interface SingleModelComponentProps {
-  post: {
-    title: string;
-    excerpt: string;
-    description: string;
-  };
-  meta: {
-    publisher: {
-      id: number;
-      name: string;
-    };
-    updated: Date;
-    category: string;
-    framework: string;
-    format: string;
-    tags: string[];
-  };
+  model: ModelType;
 }
 
 const getTableItems = (category: string, framework: string, format: string) => {
@@ -69,7 +55,7 @@ const getTagTableItem = (tags: string[]) => {
   );
 };
 
-const SingleModelComponent: React.FC<SingleModelComponentProps> = ({post, meta}) => {
+const SingleModelComponent: React.FC<SingleModelComponentProps> = ({model}) => {
 
   const renderDescTable = () => {
     const table: TableRowType[] = [
@@ -77,18 +63,18 @@ const SingleModelComponent: React.FC<SingleModelComponentProps> = ({post, meta})
         name: 'Publisher',
         value: <Link to="/">
           <span className="underline hover:text-indigo-600">
-            {meta.publisher.name}
+            {model.publisher.username}
           </span>
         </Link>,
       },
       {
         name: 'Updated',
-        value: meta.updated.toLocaleDateString(),
+        value: model.updatedAt.toLocaleDateString(),
       },
-      ...getTableItems(meta.category, meta.framework, meta.format),
+      ...getTableItems(model.category, model.framework, model.format),
       {
         name: 'Tags',
-        value: getTagTableItem(meta.tags),
+        value: getTagTableItem(model.tags),
       },
     ];
     return <DescriptionTable table={table}/>;
@@ -111,14 +97,14 @@ const SingleModelComponent: React.FC<SingleModelComponentProps> = ({post, meta})
           <div className="flex items-center text-gray-700">
             <CategoryIcon category="model"/>
             <span className="ml-1 leading-none font-semibold">
-              {meta.category}
+              {model.category}
             </span>
           </div>
           <h1 className="mt-5 text-gray-700 font-semibold text-2xl">
-            {post.title}
+            {model.name}
           </h1>
           <p className="mt-3 text-gray-700">
-            {post.excerpt}
+            {model.excerpt}
           </p>
         </header>
 
@@ -134,7 +120,7 @@ const SingleModelComponent: React.FC<SingleModelComponentProps> = ({post, meta})
         <h1 className="mt-3 text-2xl font-semibold text-gray-700">Description</h1>
         <span className="block h-px mb-2 w-full bg-gray-300"/>
         <div>
-          <MDEditor.Markdown source={post.description}/>
+          <MDEditor.Markdown source={model.description}/>
         </div>
       </div>
 

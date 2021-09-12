@@ -13,6 +13,7 @@ import UserProfileView from './view/UserView/UserProfileView';
 import SingleModelView from './view/SingleModelView/SingleModelView';
 import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
 import MainLayout from './view/MainLayout';
+import ExternalPageContainer from './view/ExternalPageView/ExternalPageContainer';
 
 const App: React.FC = () => {
 
@@ -27,7 +28,12 @@ const App: React.FC = () => {
       <GlobalNotifcation/>
       <Switch>
         <Route path="/test">
-
+          <ExternalPageContainer>
+            {
+              Array.from({length: 10}, (value, key) =>
+                <div className="h-10 mt-2 bg-gray-300"/>)
+            }
+          </ExternalPageContainer>
         </Route>
 
         <Route path="/user/:username" component={UserProfileView}/>
