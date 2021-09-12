@@ -14,6 +14,7 @@ import SingleModelView from './view/SingleModelView/SingleModelView';
 import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
 import MainLayout from './view/MainLayout';
 import ExternalPageContainer from './view/ExternalPageView/ExternalPageContainer';
+import NotFoundView from './view/NotFoundView';
 
 const App: React.FC = () => {
 
@@ -64,9 +65,14 @@ const App: React.FC = () => {
           <ModelPublishLayout/>
         </Route>
 
-        <Route path="/">
+        <Route exact path="/models">
           <MainLayout/>
         </Route>
+        <Route exact path="/">
+          <MainLayout/>
+        </Route>
+
+        <Route component={NotFoundView}/>
       </Switch>
     </BrowserRouter>
   );
