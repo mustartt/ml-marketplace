@@ -1,13 +1,40 @@
 import React, { useEffect } from 'react';
-import LayoutGoBackComponent from '../../components/Layout/LayoutGoBackComponent';
 import SingleModelComponent from './SingleModelComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import SingleModelActions from '../../../actions/model/SingleModelActions';
 import { RootState } from '../../../store/reducers/rootReducer';
+import ExternalPageContainer from '../ExternalPageView/ExternalPageContainer';
+import { ModelType } from '../../../types/ResponseTypes';
+import LoadingMessage from '../../components/Utils/LoadingMessage';
 
 interface SingleModelViewProps {
   id: string;
 }
+
+const DEFAULT_MODEL: ModelType = {
+  id: 0,
+  name: 'NAME_UNDEFINED',
+  category: 'CATEGORY_UNDEFINED',
+  description: '# Description',
+  excerpt: 'Excerpt',
+  format: 'FORMAT_UNDEFINED',
+  framework: 'FORMAT_UNDEFINED',
+  price: 0,
+  publisher: {
+    username: 'USER_UNDEFINED',
+    email: 'EMAIL_UNDEFINED',
+    id: 0,
+    roles: [],
+    details: {
+      firstname: 'FIRSTNAME_UNDEFINED',
+      lastname: 'LASTNAME_UNDEFINED',
+      profileImage: 'PROFILE_IMAGE_UNDEFINED',
+    },
+  },
+  tags: [],
+  updatedAt: new Date(),
+  createdAt: new Date(),
+};
 
 const SingleModelView: React.FC<SingleModelViewProps> = ({id}) => {
 
@@ -24,32 +51,26 @@ const SingleModelView: React.FC<SingleModelViewProps> = ({id}) => {
   }, []);
 
   return (
-    <div className="flex justify-center bg-white w-full h-screen">
-      <div className="bg-gray-50 justify-center w-full h-full max-w-4xl">
-        <LayoutGoBackComponent onBack={() => {
-        }}/>
-        {isLoading ?
-          'Is Loading...' :
-          <SingleModelComponent
-            post={{
-              title: model?.name || '',
-              excerpt: model?.excerpt || '',
-              description: model?.description || '',
-            }}
-            meta={{
-              publisher: {
-                id: model?.publisher.id || -1,
-                name: model?.publisher.username || 'USER_NOTFOUND',
-              },
-              updated: model?.updatedAt || new Date(),
-              tags: model?.tags || [],
-              category: model?.category || 'CATEGORY_UNDEFINED',
-              framework: model?.framework || 'FRAMEWORK_UNDEFINED',
-              format: model?.format || 'FORMAT_UNDEFINED',
-            }}/>
+    <ExternalPageContainer>
+      <div className="flex justify-center">
+        {
+          isLoading ?
+            <div className="mt-20">
+              <LoadingMessage/>
+            </div> :
+            (
+              error ?
+                <div className="mt-20">
+                  {error}
+                </div> :
+                <div className="flex-grow max-w-6xl">
+                  <SingleModelComponent
+                    model={model || DEFAULT_MODEL}/>
+                </div>
+            )
         }
       </div>
-    </div>
+    </ExternalPageContainer>
   );
 };
 
