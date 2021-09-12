@@ -12,6 +12,6 @@ const LoadingMessage = () => {
       <span>Loading...</span>
     </div>
   );
-}
+};
 
 export default LoadingMessage;

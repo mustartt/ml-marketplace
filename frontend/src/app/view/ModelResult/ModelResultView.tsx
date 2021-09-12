@@ -72,10 +72,6 @@ const ModelResultView = () => {
         subheading={'Specify the models you are looking for choosing the filters'}
         submitFilter={handleFilterSubmit}
       >
-        <pre className="m-1 text-xs rounded-lg p-3 bg-gray-100 text-black">
-          {JSON.stringify(modelState.filters, null, 2)}
-        </pre>
-
         <div className="p-3">
           <div className="px-3">
             <RangeSlider
@@ -97,25 +93,17 @@ const ModelResultView = () => {
 
       </FilterSlideOver>
 
-      <div className="bg-gray-100 h-full">
+      <div className="flex flex-col bg-gray-100 h-full">
         <header className="flex items-center justify-between space-x-2 bg-white p-3 shadow-md">
           {
             !isDesktopBreakPoint() &&
             <SidebarToggle/>
           }
-
           <SearchBox search={onSearch}/>
-
           <FilterButton/>
-
         </header>
-
         <section className="flex justify-between items-center p-2">
-          <h2 className="font-semibold text-lg text-gray-900"
-              onClick={() => {
-                console.log('a');
-              }}
-          >
+          <h2 className="font-semibold text-lg text-gray-900">
             Showing Results: {modelState.curr * modelState.pageSize + modelState.models.length} / {modelState.totalSize}
           </h2>
           <Pagination curr={modelState.curr}
@@ -125,7 +113,10 @@ const ModelResultView = () => {
         </section>
 
         {/* model page view */}
-        <ModelPageView/>
+        <div className="flex-grow overflow-y-auto">
+          <ModelPageView/>
+          <div className="h-10"/>
+        </div>
 
       </div>
     </>
