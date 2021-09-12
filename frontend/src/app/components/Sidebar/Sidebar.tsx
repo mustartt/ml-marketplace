@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({brand, logo, children}) => {
         leaveTo="-translate-x-full"
       >
         <section
-          className="w-80 flex-shrink-0 absolute z-40 md:relative top-0 h-full bg-gray-100">
+          className="w-80 flex-shrink-0 absolute z-40 md:relative top-0 h-full bg-white shadow-xl">
           <div className="flex flex-col h-full justify-between p-5">
             <div>
               <header className="flex flex-row p-3 justify-between items-center border-0 border-b-2">
