@@ -17,7 +17,11 @@ const ExternalPageContainer: React.FC<ExternalPageContainerProps & RouteComponen
     };
 
     const handleGoBack = () => {
-      history.push(redirectLink || '/');
+      if (redirectLink) {
+        history.push(redirectLink);
+      } else {
+        history.goBack();
+      }
     };
 
     return (
