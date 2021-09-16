@@ -47,5 +47,13 @@ public class CartItem {
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
+    @Transient
+    public double getTotal() {
+        if (this.model != null) {
+            return this.model.getPrice() * this.quantity;
+        } else {
+            return this.dataset.getPrice() * this.quantity;
+        }
+    }
 
 }

@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @EntityScan(basePackages = "com.mlmarketplace.mlmp.models")
 @DataJpaTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class ShoppingCartIntegrationTest {
+public class ShoppingCartRepositoryIntegrationTest {
 
     private final CartItemRepository cartRepo;
 

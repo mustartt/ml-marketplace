@@ -67,9 +67,6 @@ public class Dataset {
     @UpdateTimestamp
     @Column(name = "update_date", nullable = false)
     private Date updateDate;
-
-    //@ManyToMany(mappedBy = "datasets")
-    //private Set<ShoppingCart> carts;
 }
 
 
