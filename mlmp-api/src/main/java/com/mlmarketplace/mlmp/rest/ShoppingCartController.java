@@ -7,10 +7,7 @@ import com.mlmarketplace.mlmp.models.User;
 import com.mlmarketplace.mlmp.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,4 +28,36 @@ public class ShoppingCartController {
         }
         return responses;
     }
+
+    @PostMapping("/cart/add/{pid}/{qty}")
+    public String addProductToCart(@PathVariable("pid") Long productId,
+                                   @PathVariable("qty") Integer quantity,
+                                   @RequestBody final User user,
+                                   @RequestBody final String type) {
+        shoppingCartService.addProduct(productId, quantity, user, type);
+        return quantity + " of the product is added to your shopping cart.";
+    }
+
+    @PostMapping("/cart/update/{pid}/{qty}")
+    public String updateQuantity(@PathVariable("pid") Long productId,
+                                   @PathVariable("qty") Integer quantity,
+                                   @RequestBody final User user,
+                                   @RequestBody final String type) {
+        double newPrice = shoppingCartService.updateQuantityProduct(productId, quantity, user, type);
+        if (newPrice == -1) {
+            return "Error. Something went wrong.";
+        }
+        return String.valueOf(newPrice);
+    }
+
+    @PostMapping("/cart/remove/{pid}")
+    public String removeProductFromCart(@PathVariable("pid") Long productId,
+                                        @RequestBody final User user,
+                                        @RequestBody final String type) {
+        if (shoppingCartService.removeProduct(productId, user, type)) {
+            return "Successfully removed product from cart.";
+        }
+        return "Error. Something went wrong.";
+    }
+
 }

@@ -67,9 +67,6 @@ public class Model {
     @UpdateTimestamp
     @Column(name = "update_date", nullable = false)
     private Date updateDate;
-
-    //@ManyToMany(mappedBy = "models")
-    //private Set<ShoppingCart> carts;
 }
 
 
