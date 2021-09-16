@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+public
 interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    List<CartItem> findByUserId(String userId);
+    List<CartItem> findByUserId(Long userId);
     void deleteByUserIdAndModelId(Long customerId, Long productId);
     void deleteByUserIdAndDatasetId(Long customerId, Long productId);
     //void updateQuantity(int quantity, Long customerId, Long productId);

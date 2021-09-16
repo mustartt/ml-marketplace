@@ -41,7 +41,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "dataset_id", insertable = false, updatable = false)
-    private Dataset dateset;
+    private Dataset dataset;
 
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
