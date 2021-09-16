@@ -36,4 +36,7 @@ public class CartItemResponse {
 
     @JsonProperty("user")
     private User user;
+
+    @JsonProperty("cost")
+    private Double cost;
 }

@@ -1,12 +1,8 @@
 package com.mlmarketplace.mlmp.service;
 
 import com.mlmarketplace.mlmp.models.CartItem;
-import com.mlmarketplace.mlmp.models.Dataset;
-import com.mlmarketplace.mlmp.models.Model;
 import com.mlmarketplace.mlmp.models.User;
 import com.mlmarketplace.mlmp.repository.CartItemRepository;
-import com.mlmarketplace.mlmp.repository.DatasetRepository;
-import com.mlmarketplace.mlmp.repository.ModelsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +14,6 @@ import java.util.List;
 public class ShoppingCartService {
     @Autowired
     private CartItemRepository cartItemRepository;
-    @Autowired
-    private ModelsRepository modelsRepository;
-    @Autowired
-    private DatasetRepository datasetRepository;
 
     public List<CartItem> listCartItems(User customer) {
         List<CartItem> cartItems = cartItemRepository.findByUserId(customer.getId());

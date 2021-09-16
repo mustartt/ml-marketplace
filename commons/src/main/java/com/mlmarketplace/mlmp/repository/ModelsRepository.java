@@ -1,12 +1,9 @@
 package com.mlmarketplace.mlmp.repository;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
 
-=======
 import com.mlmarketplace.mlmp.models.CartItem;
->>>>>>> ff51b09... implemented shoppingcart services
 import com.mlmarketplace.mlmp.models.Model;
 import com.mlmarketplace.mlmp.models.User;
 import org.springframework.data.domain.Page;
