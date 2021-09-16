@@ -45,6 +45,11 @@ public class Model {
     @JoinColumn(name = "publisher_id", nullable = false)
     private User publisher;
 
+    @Column(name = "type", nullable = false)
+    private final ModelType type = ModelType.MODEL;
+
+    // TODO (HJ): user table joins later when done implementing auth
+
     @Column(name = "excerpt")
     @Builder.Default
     private String excerpt = "";
@@ -73,8 +78,8 @@ public class Model {
     @Column(name = "update_date", nullable = false)
     private Date updateDate;
 
-    @ManyToMany(mappedBy = "models")
-    private Set<ShoppingCart> carts;
+    //@ManyToMany(mappedBy = "models")
+    //private Set<ShoppingCart> carts;
 }
 
 

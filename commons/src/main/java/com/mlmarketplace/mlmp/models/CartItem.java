@@ -23,29 +23,29 @@ public class CartItem {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "model_id", unique = true)
-    private Long model_id;
-
-    @Column(name = "dataset_id", unique = true)
-    private Long dataset_id;
-
-    @Column(name = "quantity", nullable = false, unique = true)
+    @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "user_id", nullable = false, unique = true)
-    private Long user_id;
+    @Column(name = "model_id")
+    private Long modelId;
+
+    @Column(name = "dataset_id")
+    private Long datasetId;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     @ManyToOne
-    @JoinColumn(name = "model_id")
+    @JoinColumn(name = "model_id", insertable = false, updatable = false)
     private Model model;
 
     @ManyToOne
-    @JoinColumn(name = "dataset_id")
+    @JoinColumn(name = "dataset_id", insertable = false, updatable = false)
     private Dataset dateset;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User customer;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 
 
 }

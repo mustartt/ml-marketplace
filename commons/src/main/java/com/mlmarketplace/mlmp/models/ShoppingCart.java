@@ -6,13 +6,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+/*@Entity
 @Getter
 @Setter
 @ToString
 @Builder
 @Table(name = "cart")
-@RequiredArgsConstructor
+@RequiredArgsConstructor*/
 public class ShoppingCart {
     /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
