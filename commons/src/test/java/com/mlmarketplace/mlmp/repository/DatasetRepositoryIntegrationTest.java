@@ -37,7 +37,7 @@ public class DatasetRepositoryIntegrationTest {
     void whenSaveThenEntityIsPersisted() {
         final var toSave = createBasicEntity(DATASET_NAME);
 
-       datasetRepository.save(toSave);
+        datasetRepository.save(toSave);
         final var id = toSave.getId();
 
         final var persistedEntity =datasetRepository.findById(id);

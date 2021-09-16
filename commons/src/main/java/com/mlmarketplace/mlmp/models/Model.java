@@ -1,12 +1,8 @@
 package com.mlmarketplace.mlmp.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -71,6 +67,9 @@ public class Model {
     @UpdateTimestamp
     @Column(name = "update_date", nullable = false)
     private Date updateDate;
+
+    @ManyToMany(mappedBy = "models")
+    private Set<ShoppingCart> carts;
 }
 
 
