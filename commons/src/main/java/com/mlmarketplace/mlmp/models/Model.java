@@ -41,7 +41,7 @@ public class Model {
     private String format;
 
     @Column(name = "type", nullable = false)
-    private ModelType type = ModelType.MODEL;
+    private final ModelType type = ModelType.MODEL;
 
     // TODO (HJ): user table joins later when done implementing auth
 
@@ -68,8 +68,8 @@ public class Model {
     @Column(name = "update_date", nullable = false)
     private Date updateDate;
 
-    @ManyToMany(mappedBy = "models")
-    private Set<ShoppingCart> carts;
+    //@ManyToMany(mappedBy = "models")
+    //private Set<ShoppingCart> carts;
 }
 
 

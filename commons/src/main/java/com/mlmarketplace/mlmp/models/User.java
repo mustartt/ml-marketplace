@@ -1,12 +1,7 @@
 package com.mlmarketplace.mlmp.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -28,11 +23,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id", nullable = false, unique = true)
     private Long id;
 
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
+    @Column(name = "password", nullable = false, unique = true)
     private String password;
-
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)

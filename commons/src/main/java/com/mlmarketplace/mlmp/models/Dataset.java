@@ -41,7 +41,7 @@ public class Dataset {
     private String format;
 
     @Column(name = "type", nullable = false)
-    private ModelType type = ModelType.DATASET;
+    private final ModelType type = ModelType.DATASET;
 
     // TODO (HJ): user table joins later when done implementing auth
 
@@ -68,8 +68,8 @@ public class Dataset {
     @Column(name = "update_date", nullable = false)
     private Date updateDate;
 
-    @ManyToMany(mappedBy = "datasets")
-    private Set<ShoppingCart> carts;
+    //@ManyToMany(mappedBy = "datasets")
+    //private Set<ShoppingCart> carts;
 }
 
 

@@ -45,14 +45,16 @@ public class ShoppingCartIntegrationTest {
         userRepository.save(customer);
 
         CartItem newItem = new CartItem();
-        newItem.setCustomer(customer);
-        newItem.setModel(model);
+        newItem.setUserId(customer.getId());
+        //newItem.setUser(customer);
+        newItem.setModelId(model.getId());
+        //newItem.setModel(model);
 
         CartItem saved = cartRepo.save(newItem);
         assertTrue(saved.getId() > 0);
-        assertThat(saved.getUser_id()).isEqualTo(customer.getId());
-        assertThat(model.getId()).isEqualTo(newItem.getModel_id());
-        assertThat(model.getId()).isEqualTo(saved.getModel_id());
+        assertThat(saved.getUserId()).isEqualTo(customer.getId());
+        assertThat(model.getId()).isEqualTo(newItem.getModelId());
+        assertThat(model.getId()).isEqualTo(saved.getModelId());
         assertThat(saved.getId()).isEqualTo(newItem.getId());
     }
 
@@ -65,14 +67,17 @@ public class ShoppingCartIntegrationTest {
         userRepository.save(customer);
 
         CartItem newItem = new CartItem();
-        newItem.setCustomer(customer);
-        newItem.setDateset(dataSet);
+        newItem.setUserId(customer.getId());
+        //newItem.setUser(customer);
+        newItem.setDatasetId(dataSet.getId());
+        //newItem.setDateset(dataSet);
+
 
         CartItem saved = cartRepo.save(newItem);
         assertTrue(saved.getId() > 0);
-        assertThat(saved.getUser_id()).isEqualTo(customer.getId());
-        assertThat(dataSet.getId()).isEqualTo(newItem.getDataset_id());
-        assertThat(dataSet.getId()).isEqualTo(saved.getDataset_id());
+        assertThat(saved.getUserId()).isEqualTo(customer.getId());
+        assertThat(dataSet.getId()).isEqualTo(newItem.getDatasetId());
+        assertThat(dataSet.getId()).isEqualTo(saved.getDatasetId());
         assertThat(saved.getId()).isEqualTo(newItem.getId());
 
     }
