@@ -9,6 +9,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import LoadingMessage from '../../components/Utils/LoadingMessage';
 import { useDispatch } from 'react-redux';
 import LayoutActions from '../../../actions/layout/LayoutActions';
+import { ModelRequest } from '../../../types/RequestTypes';
 
 const CATEGORY_OPTIONS = [
   'Image Classification',
@@ -86,10 +87,17 @@ const SelectFieldControl: React.FC<SelectFieldControlProps> = ({id, name, label,
   );
 };
 
-const convertToPostBody = (values: any): ModifyModelResponse => {
-  return Object.assign({}, values, {
+const convertToPostBody = (values: any): ModelRequest => {
+  return {
+    name: values.modelName,
+    category: values.category,
+    framework: values.framework,
+    format: values.format,
+    excerpt: values.excerpt,
+    description: values.description,
     tags: [],
-  });
+    price: parseFloat(values.price),
+  };
 };
 
 const ModelPublishForm: React.FC<RouteComponentProps> = ({history}) => {
@@ -112,7 +120,8 @@ const ModelPublishForm: React.FC<RouteComponentProps> = ({history}) => {
       formikHelpers.setSubmitting(true);
       axios.post<ModifyModelResponse>(ApiRoute.publishModel, convertToPostBody(values))
            .then(res => {
-             history.push(ApiRoute.constructModelUrlWithId(res.data.model_id));
+             console.log(res);
+             history.push(`/models/${res.data.model_id}`);
            })
            .catch(err => {
              dispatch(LayoutActions.autoCloseNotification('warning', err.toString()));
