@@ -1,7 +1,7 @@
 package com.mlmarketplace.mlmp.rest;
 
 
-import com.google.gson.JsonSyntaxException;
+//import com.google.gson.JsonSyntaxException;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.*;
 import com.stripe.net.ApiResource;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StripeWebhookController {
 
-    @Value("${stripe.webhook.secret}")
-    private String endpointSecret;
+    @Value("${stripe.keys.secret}")
+    private String API_SECRET_KEY;
 
     //TODO: Always return response.status(200) for frontend
     @PostMapping("/stripe/events")
-    public String handleStripeEvent(@RequestHeader("Stripe-Signature") String sigHeader, @RequestBody String payload) {
+   /* public String handleStripeEvent(@RequestHeader("Stripe-Signature") String sigHeader, @RequestBody String payload) {
         if (sigHeader == null) return "";
         Event event = null;
         try {
@@ -57,7 +57,7 @@ public class StripeWebhookController {
                 break;
         }
         return "";
-    }
+    }*/
 
     //TODO: What happens when payment is successful
     public void handlePaymentMethodAttached(PaymentMethod paymentMethod) {

@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/cart")
 @RequiredArgsConstructor
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    @GetMapping("/cart")
+    @GetMapping("/")
     public List<CartItemResponse> showShoppingCart(@RequestBody final User user) {
         List<CartItem> cartItems = shoppingCartService.listCartItems(user);
         List<CartItemResponse> responses = new ArrayList<>();
@@ -29,7 +29,9 @@ public class ShoppingCartController {
         return responses;
     }
 
-    @PostMapping("/cart/add/{pid}/{qty}")
+
+    //TODO: Replace the return value of the method with required type.
+    @PostMapping("/add/{pid}/{qty}")
     public String addProductToCart(@PathVariable("pid") Long productId,
                                    @PathVariable("qty") Integer quantity,
                                    @RequestBody final User user,
@@ -38,7 +40,8 @@ public class ShoppingCartController {
         return quantity + " of the product is added to your shopping cart.";
     }
 
-    @PostMapping("/cart/update/{pid}/{qty}")
+    //TODO: Replace the return value of the method with required type.
+    @PostMapping("/update/{pid}/{qty}")
     public String updateQuantity(@PathVariable("pid") Long productId,
                                    @PathVariable("qty") Integer quantity,
                                    @RequestBody final User user,
@@ -50,7 +53,8 @@ public class ShoppingCartController {
         return String.valueOf(newPrice);
     }
 
-    @PostMapping("/cart/remove/{pid}")
+    //TODO: Replace the return value of the method with required type.
+    @PostMapping("/remove/{pid}")
     public String removeProductFromCart(@PathVariable("pid") Long productId,
                                         @RequestBody final User user,
                                         @RequestBody final String type) {
