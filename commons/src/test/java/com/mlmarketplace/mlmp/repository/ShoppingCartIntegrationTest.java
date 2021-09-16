@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ContextConfiguration(classes = ModelsRepository.class)
@@ -80,6 +81,28 @@ public class ShoppingCartIntegrationTest {
         assertThat(dataSet.getId()).isEqualTo(saved.getDatasetId());
         assertThat(saved.getId()).isEqualTo(newItem.getId());
 
+    }
+
+    @Test
+    public void testGetCartItemsByCustomer() {
+        User customer = createBasicUser(USER_NAME, USER_PASSWORD, USER_EMAIL);
+        userRepository.save(customer);
+
+        final var dataSet = createBasicDataset(DATASET_NAME);
+        datasetRepository.save(dataSet);
+        CartItem newItemDataset = new CartItem();
+        newItemDataset.setUserId(customer.getId());
+        newItemDataset.setDatasetId(dataSet.getId());
+        CartItem savedDataset = cartRepo.save(newItemDataset);
+
+        final var model = createBasicModel(MODEL_NAME);
+        modelsRepository.save(model);
+        CartItem newItemModel = new CartItem();
+        newItemModel.setUserId(customer.getId());
+        newItemModel.setModelId(model.getId());
+        CartItem savedModel = cartRepo.save(newItemModel);
+
+        assertEquals(cartRepo.findByUserId(customer.getId()).size(), 2);
     }
 
     private Model createBasicModel(final String name) {
