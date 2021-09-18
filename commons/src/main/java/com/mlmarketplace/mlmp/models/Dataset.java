@@ -2,7 +2,6 @@ package com.mlmarketplace.mlmp.models;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -40,10 +39,9 @@ public class Dataset {
     @Column(name = "format")
     private String format;
 
-    @Column(name = "type", nullable = false)
-    private final ModelType type = ModelType.DATASET;
-
-    // TODO (HJ): user table joins later when done implementing auth
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id", nullable = false)
+    private User publisher;
 
     @Column(name = "excerpt")
     private String excerpt;

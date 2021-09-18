@@ -8,18 +8,14 @@ public class CartItemResponseMapper {
         if (cartItem.getDataset() != null) {
             return CartItemResponse.builder()
                     .quantity(cartItem.getQuantity())
-                    .userId(cartItem.getUserId())
                     .user(cartItem.getUser())
-                    .datasetId(cartItem.getDatasetId())
                     .dataset(cartItem.getDataset())
                     .cost(cartItem.getTotal())
                     .build();
         } else {
             return CartItemResponse.builder()
                     .quantity(cartItem.getQuantity())
-                    .userId(cartItem.getUserId())
                     .user(cartItem.getUser())
-                    .modelId(cartItem.getModelId())
                     .model(cartItem.getModel())
                     .cost(cartItem.getTotal())
                     .build();

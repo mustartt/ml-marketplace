@@ -35,6 +35,12 @@ public class ShoppingCartRepositoryIntegrationTest {
     private static final String USER_NAME = "user_1";
     private static final String USER_PASSWORD = "123";
     private static final String USER_EMAIL = "123@123.com";
+
+    private static final String USER_NAME_PUBLISHER = "publisher_1";
+    private static final String USER_PASSWORD_PUBLISHER = "123";
+    private static final String USER_EMAIL_PUBLISHER = "123@123.com";
+    private static final User PUBLISHER = createBasicUser(USER_NAME_PUBLISHER, USER_PASSWORD_PUBLISHER, USER_EMAIL_PUBLISHER);
+
     private final UserRepository userRepository;
 
     @Test
@@ -46,16 +52,14 @@ public class ShoppingCartRepositoryIntegrationTest {
         userRepository.save(customer);
 
         CartItem newItem = new CartItem();
-        newItem.setUserId(customer.getId());
-        //newItem.setUser(customer);
-        newItem.setModelId(model.getId());
-        //newItem.setModel(model);
+        newItem.setUser(customer);
+        newItem.setModel(model);
 
         CartItem saved = cartRepo.save(newItem);
         assertTrue(saved.getId() > 0);
-        assertThat(saved.getUserId()).isEqualTo(customer.getId());
-        assertThat(model.getId()).isEqualTo(newItem.getModelId());
-        assertThat(model.getId()).isEqualTo(saved.getModelId());
+        assertThat(saved.getUser().getId()).isEqualTo(customer.getId());
+        assertThat(model.getId()).isEqualTo(newItem.getModel().getId());
+        assertThat(model.getId()).isEqualTo(saved.getModel().getId());
         assertThat(saved.getId()).isEqualTo(newItem.getId());
     }
 
@@ -68,17 +72,15 @@ public class ShoppingCartRepositoryIntegrationTest {
         userRepository.save(customer);
 
         CartItem newItem = new CartItem();
-        newItem.setUserId(customer.getId());
-        //newItem.setUser(customer);
-        newItem.setDatasetId(dataSet.getId());
-        //newItem.setDateset(dataSet);
+        newItem.setUser(customer);
+        newItem.setDataset(dataSet);
 
 
         CartItem saved = cartRepo.save(newItem);
         assertTrue(saved.getId() > 0);
-        assertThat(saved.getUserId()).isEqualTo(customer.getId());
-        assertThat(dataSet.getId()).isEqualTo(newItem.getDatasetId());
-        assertThat(dataSet.getId()).isEqualTo(saved.getDatasetId());
+        assertThat(saved.getUser().getId()).isEqualTo(customer.getId());
+        assertThat(dataSet.getId()).isEqualTo(newItem.getDataset().getId());
+        assertThat(dataSet.getId()).isEqualTo(saved.getDataset().getId());
         assertThat(saved.getId()).isEqualTo(newItem.getId());
 
     }
@@ -91,33 +93,35 @@ public class ShoppingCartRepositoryIntegrationTest {
         final var dataSet = createBasicDataset(DATASET_NAME);
         datasetRepository.save(dataSet);
         CartItem newItemDataset = new CartItem();
-        newItemDataset.setUserId(customer.getId());
-        newItemDataset.setDatasetId(dataSet.getId());
+        newItemDataset.setUser(customer);
+        newItemDataset.setDataset(dataSet);
         CartItem savedDataset = cartRepo.save(newItemDataset);
 
         final var model = createBasicModel(MODEL_NAME);
         modelsRepository.save(model);
         CartItem newItemModel = new CartItem();
-        newItemModel.setUserId(customer.getId());
-        newItemModel.setModelId(model.getId());
+        newItemModel.setUser(customer);
+        newItemModel.setModel(model);
         CartItem savedModel = cartRepo.save(newItemModel);
 
-        assertEquals(cartRepo.findByUserId(customer.getId()).size(), 2);
+        assertEquals(cartRepo.findByUser(customer).size(), 2);
     }
 
-    private Model createBasicModel(final String name) {
+    private static Model createBasicModel(final String name) {
         return Model.builder()
                 .name(name)
+                .publisher(PUBLISHER)
                 .build();
     }
 
-    private Dataset createBasicDataset(final String name) {
+    private static Dataset createBasicDataset(final String name) {
         return Dataset.builder()
                 .name(name)
+                .publisher(PUBLISHER)
                 .build();
     }
 
-    private User createBasicUser(final String username, final String password, final String email) {
+    private static User createBasicUser(final String username, final String password, final String email) {
         return User.builder()
                 .username(username)
                 .password(password)

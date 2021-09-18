@@ -1,6 +1,8 @@
 package com.mlmarketplace.mlmp.repository;
 
 import com.mlmarketplace.mlmp.models.CartItem;
+import com.mlmarketplace.mlmp.models.Dataset;
+import com.mlmarketplace.mlmp.models.Model;
 import com.mlmarketplace.mlmp.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,23 +15,22 @@ import java.util.List;
 @Repository
 public
 interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    List<CartItem> findByUserId(Long userId);
-    CartItem findByUserIdAndModelId(Long customerId, Long productId);
-    CartItem findByUserIdAndDatasetId(Long customerId, Long productId);
+
+    List<CartItem> findByUser(User user);
+
+    CartItem findByUserAndModel(User user, Model model);
+
+    CartItem findByUserAndDataset(User user, Dataset dataset);
+
+    void deleteByUserAndModel(User user, Model model);
+
+    void deleteByUserAndDataset(User user, Dataset dataset);
 
     @Modifying
-    @Query("DELETE FROM CartItem c WHERE c.modelId = :productId AND c.userId = :userId")
-    void deleteByUserIdAndModelId(@Param("userId") Long customerId, @Param("productId") Long productId);
+    @Query("UPDATE CartItem c SET c.quantity = :quantity WHERE c.model.id = :productId AND c.user.id = :userId")
+    void updateQuantityModel(@Param("quantity")Integer quantity, @Param("user") Long customerId, @Param("productId") Long productId);
 
     @Modifying
-    @Query("DELETE FROM CartItem c WHERE c.datasetId = :productId AND c.userId = :userId")
-    void deleteByUserIdAndDatasetId(@Param("userId") Long customerId, @Param("productId") Long productId);
-
-    @Modifying
-    @Query("UPDATE CartItem c SET c.quantity = :quantity WHERE c.modelId = :productId AND c.userId = :userId")
-    void updateQuantityModel(@Param("quantity")Integer quantity, @Param("userId") Long customerId, @Param("productId") Long productId);
-
-    @Modifying
-    @Query("UPDATE CartItem c SET c.quantity = :quantity WHERE c.datasetId = :productId AND c.userId = :userId")
+    @Query("UPDATE CartItem c SET c.quantity = :quantity WHERE c.dataset.id = :productId AND c.user.id = :userId")
     void updateQuantityDataset(@Param("quantity")Integer quantity, @Param("userId") Long customerId, @Param("productId") Long productId);
 }

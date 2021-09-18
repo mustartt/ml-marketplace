@@ -2,12 +2,8 @@ package com.mlmarketplace.mlmp.models;
 
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -26,25 +22,16 @@ public class CartItem {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "model_id")
-    private Long modelId;
-
-    @Column(name = "dataset_id")
-    private Long datasetId;
-
-    @Column(name = "user_id")
-    private Long userId;
-
-    @ManyToOne
-    @JoinColumn(name = "model_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id")
     private Model model;
 
-    @ManyToOne
-    @JoinColumn(name = "dataset_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dataset_id")
     private Dataset dataset;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Transient
@@ -55,5 +42,4 @@ public class CartItem {
             return this.dataset.getPrice() * this.quantity;
         }
     }
-
 }

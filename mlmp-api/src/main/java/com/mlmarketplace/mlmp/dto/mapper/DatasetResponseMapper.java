@@ -14,7 +14,6 @@ public class DatasetResponseMapper {
                 .category(dataset.getCategory())
                 .framework(dataset.getFramework())
                 .format(dataset.getFormat())
-                .type(dataset.getType())
                 .excerpt(dataset.getExcerpt())
                 .description(dataset.getDescription())
                 .tags(Arrays.stream(dataset.getTags().split(","))

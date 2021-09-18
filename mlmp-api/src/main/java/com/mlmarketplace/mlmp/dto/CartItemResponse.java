@@ -19,15 +19,6 @@ public class CartItemResponse {
     @JsonProperty("quantity")
     private Integer quantity;
 
-    @JsonProperty("model_id")
-    private Long modelId;
-
-    @JsonProperty("dataset_id")
-    private Long datasetId;
-
-    @JsonProperty("user_id")
-    private Long userId;
-
     @JsonProperty("model")
     private Model model;
 
