@@ -94,6 +94,19 @@ create table public.dataset
     constraint publisher_id_fk foreign key (publisher_id) references public."user" (user_id)
 );
 
+create table public."cart_items"
+(
+    id    int8 unique         not null,
+    quantity int,
+    model_id int8,
+    dataset_id int8,
+    user_id int8,
+
+    constraint model_id_fk foreign key (model_id) references public."model" (model_id),
+    constraint dataset_id_fk foreign key (dataset_id) references public."dataset" (dataset_id),
+    constraint user_id_fk foreign key (user_id) references public."user" (user_id)
+);
+
 create view aggregate_product_query_view as
 select model_id as id,
        name,
