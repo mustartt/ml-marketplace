@@ -3,10 +3,10 @@ create sequence public.hibernate_sequence;
 
 create table public."user"
 (
-    user_id    int8 unique         not null,
-    email      varchar(255),
-    password   varchar(255),
-    username   varchar(255) unique not null,
+    user_id  int8 unique         not null,
+    email    varchar(255),
+    password varchar(255),
+    username varchar(255) unique not null,
 
     constraint user_id_pk primary key (user_id)
 );
@@ -131,3 +131,14 @@ select dataset_id as id,
        price,
        'dataset'  as type
 from public.dataset;
+
+create table uploaded_content
+(
+    object_key   varchar(100) not null unique,
+    filename     varchar(100) not null,
+    media_type   varchar(100),
+    publisher_id int8,
+    status       varchar(20),
+
+    constraint object_key_pk primary key (object_key)
+);

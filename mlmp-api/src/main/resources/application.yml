@@ -42,6 +42,5 @@ page:
 
 stripe:
   keys:
-    public: pk_test_51JR4AZK2tcx4NjRfD1FUYZbPHTkntBKFCBouAXvUxbg53a6IAlVXhpOg6SStl1gPFEcmpZnCeGh7qSIcZ4CPnz1T00hRQ7l3vB
-    secret: sk_test_51JR4AZK2tcx4NjRfUb6qgWxPmYupPJ78lLrUOhg3At1zzKdENpKVaosBMoDLTl0v0vAd3zMWZYy2MHuPmHEuDFck00XnwLmAcc
-
+    public: ${STRIPE_PUBLIC_KEY}
+    secret: ${STRIPE_SECRET_KEY}
