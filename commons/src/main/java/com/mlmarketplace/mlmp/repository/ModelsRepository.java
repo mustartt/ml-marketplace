@@ -3,6 +3,7 @@ package com.mlmarketplace.mlmp.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.mlmarketplace.mlmp.models.CartItem;
 import com.mlmarketplace.mlmp.models.Model;
 import com.mlmarketplace.mlmp.models.User;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ModelsRepository extends PagingAndSortingRepository<Model, Long> {
@@ -38,5 +41,6 @@ public interface ModelsRepository extends PagingAndSortingRepository<Model, Long
                        @Param("lowerbound") final double lowerbound,
                        @Param("upperbound") final double upperbound,
                        final Pageable pageable);
+
 
 }
