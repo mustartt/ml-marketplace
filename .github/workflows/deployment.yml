@@ -27,10 +27,9 @@ jobs:
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
-        working-directory: ./frontend
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
         with:
-          args: deploy --dir=build --prod
+          args: deploy --dir=frontend/build --prod
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
