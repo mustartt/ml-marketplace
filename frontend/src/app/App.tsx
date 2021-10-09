@@ -15,6 +15,8 @@ import ModelPublishLayout from './view/ModelPublishView/ModelPublishLayout';
 import MainLayout from './view/MainLayout';
 import ExternalPageContainer from './view/ExternalPageView/ExternalPageContainer';
 import NotFoundView from './view/NotFoundView';
+import TestView from './view/TestView';
+import CenterMaxWidthContent from './components/Layout/CenterMaxWidthContent';
 
 const App: React.FC = () => {
 
@@ -30,10 +32,9 @@ const App: React.FC = () => {
       <Switch>
         <Route path="/test">
           <ExternalPageContainer>
-            {
-              Array.from({length: 10}, (value, key) =>
-                <div className="h-10 mt-2 bg-gray-300"/>)
-            }
+            <CenterMaxWidthContent>
+              <TestView/>
+            </CenterMaxWidthContent>
           </ExternalPageContainer>
         </Route>
 
