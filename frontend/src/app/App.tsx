@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import UserViewContainer from './view/UserView/UserViewContainer';
 import LoginComponent from './view/UserView/LoginComponent';
-import GlobalNotifcation from './components/GlobalNotification/GlobalNotification';
+import GlobalNotification, { NOTIFICATION_TYPE } from './components/GlobalNotification/GlobalNotification';
 import RegisterComponent from './view/UserView/RegisterComponent';
 import UserProfileView from './view/UserView/UserProfileView';
 import SingleModelView from './view/SingleModelView/SingleModelView';
@@ -17,6 +17,7 @@ import ExternalPageContainer from './view/ExternalPageView/ExternalPageContainer
 import NotFoundView from './view/NotFoundView';
 import TestView from './view/TestView';
 import CenterMaxWidthContent from './components/Layout/CenterMaxWidthContent';
+import LayoutActions from '../actions/layout/LayoutActions';
 
 const App: React.FC = () => {
 
@@ -24,11 +25,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(AuthActions.getAccessToken());
+    dispatch(LayoutActions.openNotification(NOTIFICATION_TYPE.INFO, 'Site is currently not in production!'))
   }, []);
 
   return (
     <BrowserRouter>
-      <GlobalNotifcation/>
+      <GlobalNotification/>
       <Switch>
         <Route path="/test">
           <ExternalPageContainer>

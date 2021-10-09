@@ -13,6 +13,12 @@ type ColorDictionary = {
   }
 };
 
+export const NOTIFICATION_TYPE = {
+  WARNING: 'warning',
+  SUCCESS: 'success',
+  INFO: 'info',
+};
+
 const color: ColorDictionary = {
   ['warning']: {
     prefix: 'warning',

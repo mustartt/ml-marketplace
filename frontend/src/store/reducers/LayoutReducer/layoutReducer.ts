@@ -27,7 +27,7 @@ const isDesktopWidth = window.innerWidth > 768;
 
 const defaultState = {
   sidebar: {
-    open: true,
+    open: false,
   },
   notification: {
     type: 'warning',
