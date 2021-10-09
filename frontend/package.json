@@ -27,6 +27,7 @@
     "setupFiles": [
       "./src/setupTests.ts"
     ],
+    "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     }
@@ -67,6 +68,7 @@
     "@types/enzyme": "^3.10.9",
     "@types/react-router-dom": "^5.1.8",
     "@types/redux-form": "^8.3.2",
+    "babel-jest": "^27.2.5",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
@@ -88,6 +90,7 @@
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
     "terser-webpack-plugin": "^5.1.4",
+    "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.5",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.7.2",
