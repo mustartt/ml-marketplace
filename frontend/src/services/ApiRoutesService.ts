@@ -21,6 +21,8 @@ const ApiRoute = {
   updateModel: constructRequestUrl('api/models/'),
   deleteModel: constructRequestUrl('api/models/'),
 
+  uploadFile: constructRequestUrl('api/file/upload'),
+
   constructModelUrlWithId: (modelId: number) => constructRequestUrl('api/models/') + modelId,
   constructProfileUrlWithUsername: (username: string) => constructRequestUrl('api/user/') + username,
 };

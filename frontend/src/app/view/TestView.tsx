@@ -1,8 +1,13 @@
 import React from 'react';
+import FileUploadComponent from '../components/FileUploadComponent';
 
 const TestView = () => {
   return (
-    <h1>Test View</h1>
+    <div className="bg-white p-10 rounded shadow-xl">
+      <FileUploadComponent>
+
+      </FileUploadComponent>
+    </div>
   );
 };
 
