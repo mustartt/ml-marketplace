@@ -28,9 +28,7 @@ jobs:
 
       - name: Build Docker Image
         working-directory: ./mlmp-api
-        run: mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=mustartt/mlmp-api:latest
+        run: mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=${{ secrets.DOCKER_HUB_USERNAME }}/mlmp-api:latest
 
       - name: Push to Docker Hub
-        uses: actions-hub/docker@master
-        with:
-          args: push mustartt/mlmp-api:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mlmp-api:latest
